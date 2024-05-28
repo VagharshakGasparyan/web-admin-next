@@ -1,0 +1,35 @@
+:root {
+
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+
+  }
+}
+html, body{
+  background-color: grey;
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+a{
+  text-decoration: none;
+}
+a.active{
+  background-color: cornflowerblue;
+}
+
+
+/*@media (prefers-color-scheme: dark) {*/
+/*  html {*/
+/*    color-scheme: dark;*/
+/*  }*/
+/*}*/
+.main-home{
+  width: 1024px;
+  max-width: 100vh;
+}

@@ -1,0 +1,56 @@
+npx create-next-app@latest       (npm install next@latest react@latest react-dom@latest)
+
+What is your project named? my-app
+Would you like to use TypeScript? No / Yes
+Would you like to use ESLint? No / Yes
+Would you like to use Tailwind CSS? No / Yes
+Would you like to use `src/` directory? No / Yes
+Would you like to use App Router? (recommended) No / Yes
+Would you like to customize the default import alias (@/*)? No / Yes
+What import alias would you like configured? @/*
+
+{
+  "scripts": {
+    "dev": "next dev",  "dev": "next dev -p 3500",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  }
+}
+
+// before
+import { Button } from '../../../components/button'
+// after
+import { Button } from '@/components/button'
+
+_folderName           private folder
+(folderName)         no router, only group
+[id]         variable route
+const params = useParams(); params.id
+
+Генерация статических параметров
+export async function generateStaticParams() {
+  const posts = await fetch('https://.../posts').then((res) => res.json())
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }))
+}
+
+app/shop/[...slug]/page.js	/shop/a	{ slug: ['a'] }
+app/shop/[...slug]/page.js	/shop/a/b	{ slug: ['a', 'b'] }
+app/shop/[...slug]/page.js	/shop/a/b/c	{ slug: ['a', 'b', 'c'] }
+------------------------------------------------------------------------
+app/shop/[[...slug]]/page.js	/shop	{}
+app/shop/[[...slug]]/page.js	/shop/a	{ slug: ['a'] }
+app/shop/[[...slug]]/page.js	/shop/a/b	{ slug: ['a', 'b'] }
+app/shop/[[...slug]]/page.js	/shop/a/b/c	{ slug: ['a', 'b', 'c'] }
+-----------------------------------------------------------------------
+app/blog/[slug]/page.js	{ slug: string }
+app/shop/[...slug]/page.js	{ slug: string[] }
+app/shop/[[...slug]]/page.js	{ slug?: string[] }
+app/[categoryId]/[itemId]/page.js	{ categoryId: string, itemId: string }
+-----------------------------------------------------------------------
+'use server'
+SSR(Server-side rendering), ISR(Incremental Static Regeneration), SSG(Static Site Generation)
+

@@ -1,0 +1,52 @@
+:root {
+    --bg-1: #161c2d;
+    --bg-2: #ddf;
+    --color-1: #ddf;
+    --color-2: #161c2d;
+    --color-3: #55f;
+}
+* {
+    box-sizing: border-box;
+}
+body{
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.admin-header{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    height: 55px;
+    background-color: var(--bg-1);
+    color: var(--color-1);
+}
+.admin-section{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    background-color: var(--bg-2);
+    color: var(--color-2);
+}
+.admin-sidebar{
+    width: 250px;
+    background-color: var(--bg-1);
+    color: var(--color-1);
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.admin-sidebar a{
+    color: var(--color-1);
+    text-decoration: none;
+    padding: 3px 5px;
+}
+.admin-sidebar a:hover{
+    color: var(--color-3);
+    text-decoration: none;
+}
+.admin-main{
+    flex: 1;
+    padding: 10px;
+}

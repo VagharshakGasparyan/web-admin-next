@@ -9,7 +9,8 @@ export default function AdmHeader({toggleSidebar}) {
     return (
         <header className={"admin-header"}>
             <div style={{width:"250px"}}>
-                My Site
+                <a href={"/admin"}>My Site</a>
+
                 <button type={"button"} onClick={toggleSidebar} className={"la la-reorder"}
                         style={{backgroundColor:"#fff0",color:"inherit",fontSize:"27px",float:"right"}}></button>
             </div>

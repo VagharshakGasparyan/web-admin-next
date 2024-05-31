@@ -2,9 +2,11 @@
 // import "./globals.css";
 // import {NavLinks} from '@/components/nav-links';
 import "./admin.css";
+import "./awesome.css";
 import {Metadata} from 'next';
 import AdmHeader from "./_layouts/adm_header";
 import AdmSidebar from "./_layouts/adm_sidebar";
+import Admin from "./_layouts/admin";
 // import {useState} from "react";
 
 export const metadata = {
@@ -38,22 +40,11 @@ export const metadata = {
 // }
 
 export default async function LayoutAdmin({children}) {
-    // const [sidebarOpen, setSidebarOpen] = useState(true);
-    let sidebarOpen = true;
-    // const toggleSidebar = ()=>{
-    //     // setSidebarOpen(!sidebarOpen);
-    //     sidebarOpen = false;
-    // };
+
     return (
         <html lang="en">
         <body>
-        <AdmHeader />
-        <section className={"admin-section"}>
-            <AdmSidebar isOpen={sidebarOpen} />
-            <main className={"admin-main"}>
-                {children}
-            </main>
-        </section>
+        <Admin children={children} />
         </body>
         </html>
     );

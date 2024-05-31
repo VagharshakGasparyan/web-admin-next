@@ -1,9 +1,11 @@
+
 :root {
     --bg-1: #161c2d;
     --bg-2: #ddf;
     --color-1: #ddf;
     --color-2: #161c2d;
     --color-3: #55f;
+    --color-4: #ff0;
 }
 * {
     box-sizing: border-box;
@@ -36,6 +38,7 @@ body{
     padding: 10px;
     display: flex;
     flex-direction: column;
+    transition: margin-left 300ms;
 }
 .admin-sidebar a{
     color: var(--color-1);
@@ -45,6 +48,9 @@ body{
 .admin-sidebar a:hover{
     color: var(--color-3);
     text-decoration: none;
+}
+.admin-sidebar a.selected{
+    color: var(--color-4);
 }
 .admin-main{
     flex: 1;

@@ -4,7 +4,7 @@
     --bg-2: #ddf;
     --color-1: #ddf;
     --color-2: #161c2d;
-    --color-3: #55f;
+    --color-3: #99f;
     --color-4: #ff0;
 }
 * {
@@ -40,19 +40,72 @@ body{
     flex-direction: column;
     transition: margin-left 300ms;
 }
-.admin-sidebar a{
+a.sidebar{
     color: var(--color-1);
     text-decoration: none;
     padding: 3px 5px;
+    cursor: pointer;
 }
-.admin-sidebar a:hover{
+a.sidebar:hover{
     color: var(--color-3);
     text-decoration: none;
 }
-.admin-sidebar a.selected{
+a.sidebar.selected{
     color: var(--color-4);
 }
 .admin-main{
     flex: 1;
     padding: 10px;
+}
+/*==============================*/
+.d-flex{
+    display: flex;
+}
+.d-block{
+    display: block;
+}
+.d-none{
+    display: none;
+}
+.flex-1{
+    flex: 1;
+}
+.align-items-center{
+    align-items: center;
+}
+.justify-content-center{
+    justify-content: center;
+}
+.btn-reorder{
+    background-color: #fff0;
+    color: inherit;
+    font-size: 27px;
+    cursor: pointer;
+    border-radius: 5px;
+    border: 2px solid #fff1;
+}
+.btn-reorder:hover{
+    border-color: #fff5;
+}
+.btn-reorder:active{
+    border-color: #fff;
+    background-color: #fff5;
+}
+.btn{
+    outline: none;
+    border-radius: 5px;
+    background-color: white;
+    font-size: 14px;
+    padding: 5px 7px;
+    cursor: pointer;
+    border: none;
+    color: #555;
+}
+.btn:hover{
+    background-color: #eee;
+    color: #333;
+}
+.btn:active{
+    background-color: #ddd;
+    color: #000;
 }

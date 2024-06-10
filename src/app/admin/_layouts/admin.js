@@ -4,12 +4,25 @@ import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect, useState} from "react";
 import AdmHeader from "@/app/admin/_layouts/adm_header";
 import AdmSidebar from "@/app/admin/_layouts/adm_sidebar";
+import {lsGet, lsSet} from "@/functions/ls";
 // export const revalidate = 200;
 
+
 export default function Admin({children}) {
+    console.log("****************************");
+    // const [sidebarOpen, setSidebarOpen] = useState(lsGet("_set", true, "sidebarOpen"));
     const [sidebarOpen, setSidebarOpen] = useState(true);
+    const [initialised, setInitialised] = useState(false);
+
+    useEffect(()=>{
+        setSidebarOpen(lsGet("_set", true, "sidebarOpen"));
+        setInitialised(true);
+    }, []);
+
     const toggleSidebar = ()=>{
+        lsSet("_set", !sidebarOpen, "sidebarOpen");
         setSidebarOpen(!sidebarOpen);
+
     };
     const pathname = usePathname();
     const myBoards = () => {
@@ -19,6 +32,7 @@ export default function Admin({children}) {
         })
     };
     return (
+        initialised ?
         <>
             <AdmHeader toggleSidebar={toggleSidebar} />
             <section className={"admin-section"}>
@@ -27,6 +41,6 @@ export default function Admin({children}) {
                     {children}
                 </main>
             </section>
-        </>
+        </>:<div style={{fontSize:"50px", color:"#161c2d"}} className={"d-flex align-items-center justify-content-center flex-1"}>Loading...</div>
     );
 }

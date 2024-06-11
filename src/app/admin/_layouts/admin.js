@@ -9,7 +9,7 @@ import {lsGet, lsSet} from "@/functions/ls";
 
 
 export default function Admin({children}) {
-    console.log("****************************");
+    // console.log("****************************");
     // const [sidebarOpen, setSidebarOpen] = useState(lsGet("_set", true, "sidebarOpen"));
     const [sidebarOpen, setSidebarOpen] = useState(true);
     const [initialised, setInitialised] = useState(false);

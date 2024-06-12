@@ -11,32 +11,29 @@ import {lsGet, lsSet} from "@/functions/ls";
 export default function Admin({children}) {
     // console.log("****************************");
     // const [sidebarOpen, setSidebarOpen] = useState(lsGet("_set", true, "sidebarOpen"));
-    const [sidebarOpen, setSidebarOpen] = useState(true);
     const [initialised, setInitialised] = useState(false);
 
+    const [state, setState] = useState(false);
+
+
     useEffect(()=>{
-        setSidebarOpen(lsGet("_set", true, "sidebarOpen"));
         setInitialised(true);
     }, []);
 
-    const toggleSidebar = ()=>{
-        lsSet("_set", !sidebarOpen, "sidebarOpen");
-        setSidebarOpen(!sidebarOpen);
+    useEffect(()=>{
+        global.updateState = ()=>{
+            setState(!state);
+        }
+    },[state]);
 
-    };
     const pathname = usePathname();
-    const myBoards = () => {
-        let boards = ["dashboard", "users", "products"];
-        return boards.map((board) => {
-            return <a href={"/admin/" + board}>{board.charAt(0).toUpperCase() + board.slice(1)}</a>;
-        })
-    };
+
     return (
         initialised ?
         <>
-            <AdmHeader toggleSidebar={toggleSidebar} />
+            <AdmHeader />
             <section className={"admin-section"}>
-                <AdmSidebar isOpen={sidebarOpen} />
+                <AdmSidebar />
                 <main className={"admin-main"}>
                     {children}
                 </main>

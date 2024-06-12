@@ -55,6 +55,9 @@ function lsSet(localStorageKey, value, jsonKey = null) {
             val1[jsonKey] = value;
             localStorage.setItem(localStorageKey, JSON.stringify(val1));
             saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
+            if("updateState" in global){
+                global.updateState();
+            }
             return true;
         }catch (e) {
             return false;
@@ -62,7 +65,14 @@ function lsSet(localStorageKey, value, jsonKey = null) {
     }
     localStorage.setItem(localStorageKey, value);
     saveToGlobal(["ls", localStorageKey], value, global);
+    if("updateState" in global){
+        global.updateState();
+    }
     return true;
+}
+
+function varSet() {
+    
 }
 
 module.exports = {lsGet, lsSet};

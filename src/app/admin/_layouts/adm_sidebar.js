@@ -3,12 +3,16 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect, useState} from "react";
+import {lsGet} from "@/functions/ls";
 // export const revalidate = 200;
 
-export default function AdmSidebar({isOpen}) {
+export default function AdmSidebar({}) {
     const router = useRouter();
     const pathname = usePathname();
     const pats = pathname.split("/");
+    const isOpen = ()=>{
+        return lsGet("_set", true, "sidebarOpen");
+    }
     // console.log(pathname, pats);
     const myBoards = () => {
         let boards = [{r: "dashboard", c: "la la-home"}, {r: "users", c: "la la-users"}, {r: "settings", c: "la la-cog"}];
@@ -20,7 +24,7 @@ export default function AdmSidebar({isOpen}) {
         })
     };
     return (
-        <div className={"admin-sidebar"} style={isOpen ? {marginLeft: 0} : {marginLeft: "-250px"}}>
+        <div className={"admin-sidebar"} style={isOpen() ? {marginLeft: 0} : {marginLeft: "-250px"}}>
             {/*<a onClick={()=>{*/}
             {/*    router.push("/admin/dashboard");*/}
             {/*}} className={"sidebar la la-home " + (pats[2] === ("dashboard") ? "selected" : "")} href={"#"}> Dashboard routov</a>*/}

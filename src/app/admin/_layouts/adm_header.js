@@ -6,7 +6,7 @@ import {lsGet, lsSet} from "@/functions/ls";
 import BreadCrumb from "@/app/admin/_layouts/breadcrumb";
 // export const revalidate = 200;
 
-export default function AdmHeader({}) {
+export default function AdmHeader() {
     const pathname = usePathname();
     const toggleSidebar = ()=>{
         let sidebarOpen = lsGet("_set", true, "sidebarOpen");

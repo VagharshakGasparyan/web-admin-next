@@ -1,10 +1,12 @@
 'use client'
 
+const {useState, createContext} = require("react");
+
 function isJson(data) {
     try {
         JSON.parse(data);
         return true;
-    }catch (e) {
+    } catch (e) {
         return false;
     }
 }
@@ -15,33 +17,33 @@ function isTypeJson(data) {
 
 function saveToGlobal(keys, value, obj) {
     let key = keys[0];
-    if(keys.length < 2){
+    if (keys.length < 2) {
         obj[key] = value;
         return;
     }
-    if(!isTypeJson(obj) || !(key in obj)){
+    if (!isTypeJson(obj) || !(key in obj)) {
         obj[key] = {};
     }
     saveToGlobal(keys.slice(1), value, obj[key]);
 }
 
 function lsGet(localStorageKey, defaultValue, jsonKey = null) {
-    if(("ls" in global) && isTypeJson(global.ls) && (localStorageKey in global.ls)){
-        if(jsonKey){
-            if(isTypeJson(global.ls[localStorageKey]) && (jsonKey in global.ls[localStorageKey])){
+    if (("ls" in global) && isTypeJson(global.ls) && (localStorageKey in global.ls)) {
+        if (jsonKey) {
+            if (isTypeJson(global.ls[localStorageKey]) && (jsonKey in global.ls[localStorageKey])) {
                 return global.ls[localStorageKey][jsonKey];
             }
-        }else{
+        } else {
             return global.ls[localStorageKey];
         }
     }
     let val = localStorage.getItem(localStorageKey);
-    if(jsonKey){
+    if (jsonKey) {
         try {
             let val1 = JSON.parse(val)[jsonKey];
             saveToGlobal(["ls", localStorageKey, jsonKey], val1, global);
             return val1;
-        }catch (e) {
+        } catch (e) {
             return defaultValue;
         }
     }
@@ -49,36 +51,36 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
 }
 
 function lsSet(localStorageKey, value, jsonKey = null) {
-    if(jsonKey){
+    if (jsonKey) {
         try {
             let val = localStorage.getItem(localStorageKey);
             let val1 = isJson(val) ? JSON.parse(val) : {};
             val1[jsonKey] = value;
             localStorage.setItem(localStorageKey, JSON.stringify(val1));
             saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
-            if("updateState" in global){
+            if ("updateState" in global) {
                 global.updateState();
             }
             return true;
-        }catch (e) {
+        } catch (e) {
             return false;
         }
     }
     localStorage.setItem(localStorageKey, value);
     saveToGlobal(["ls", localStorageKey], value, global);
-    if("updateState" in global){
+    if ("updateState" in global) {
         global.updateState();
     }
     return true;
 }
 
 function varGet(StateKey, defaultValue, jsonKey = null) {
-    if(("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)){
-        if(jsonKey){
-            if(isTypeJson(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])){
+    if (("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)) {
+        if (jsonKey) {
+            if (isTypeJson(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
                 return global.gs[StateKey][jsonKey];
             }
-        }else{
+        } else {
             return global.gs[StateKey];
         }
     }
@@ -86,24 +88,31 @@ function varGet(StateKey, defaultValue, jsonKey = null) {
 }
 
 function varSet(StateKey, value, jsonKey = null) {
-    // console.log(global.gs);
-    if(jsonKey){
+    if (jsonKey) {
         try {
             saveToGlobal(["gs", StateKey, jsonKey], value, global);
-            if("updateState" in global){
+            if ("updateState" in global) {
                 global.updateState();
             }
             return true;
-        }catch (e) {
+        } catch (e) {
             return false;
         }
     }
     saveToGlobal(["gs", StateKey], value, global);
-    if("updateState" in global){
+    if ("updateState" in global) {
         global.updateState();
     }
     return true;
 }
 
+function useGLS() {
+    const [state, setState] = useState(false);
+    global.updateState = () => {
+        setState(!state);
+    };
+    return createContext("state");
+}
 
-module.exports = {lsGet, lsSet, varGet, varSet};
+
+module.exports = {lsGet, lsSet, varGet, varSet, useGLS};

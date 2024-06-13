@@ -12,7 +12,7 @@ export default function L1() {
             <button style={{backgroundColor: varGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = varGet("btnColor", "yellow");
-                        let a= varSet("btnColor", c === "yellow" ? "red" : "yellow");
+                        varSet("btnColor", c === "yellow" ? "red" : "yellow");
                     }}
             >Press me</button>
         </div>

@@ -6,7 +6,7 @@ import {useEffect, useState} from "react";
 import {lsGet} from "@/functions/ls";
 // export const revalidate = 200;
 
-export default function AdmSidebar({}) {
+export default function AdmSidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const pats = pathname.split("/");

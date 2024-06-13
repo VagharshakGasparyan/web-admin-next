@@ -47,6 +47,7 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     }
     return val === null ? defaultValue : val;
 }
+
 function lsSet(localStorageKey, value, jsonKey = null) {
     if(jsonKey){
         try {
@@ -71,8 +72,38 @@ function lsSet(localStorageKey, value, jsonKey = null) {
     return true;
 }
 
-function varSet() {
-    
+function varGet(StateKey, defaultValue, jsonKey = null) {
+    if(("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)){
+        if(jsonKey){
+            if(isTypeJson(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])){
+                return global.gs[StateKey][jsonKey];
+            }
+        }else{
+            return global.gs[StateKey];
+        }
+    }
+    return defaultValue;
 }
 
-module.exports = {lsGet, lsSet};
+function varSet(StateKey, value, jsonKey = null) {
+    // console.log(global.gs);
+    if(jsonKey){
+        try {
+            saveToGlobal(["gs", StateKey, jsonKey], value, global);
+            if("updateState" in global){
+                global.updateState();
+            }
+            return true;
+        }catch (e) {
+            return false;
+        }
+    }
+    saveToGlobal(["gs", StateKey], value, global);
+    if("updateState" in global){
+        global.updateState();
+    }
+    return true;
+}
+
+
+module.exports = {lsGet, lsSet, varGet, varSet};

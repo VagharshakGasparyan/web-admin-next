@@ -1,6 +1,7 @@
 'use client'
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
+import {lsGet, lsSet, varSet, varGet} from "@/functions/ls";
 // export const revalidate = 200;
 
 export default function L1() {
@@ -8,7 +9,12 @@ export default function L1() {
     return (
         <div>
             <h1>ADMIN PAGE</h1>
-            <button className={'btn'}>Press me</button>
+            <button style={{backgroundColor: varGet("btnColor", "yellow")}} className={'btn'}
+                    onClick={()=>{
+                        let c = varGet("btnColor", "yellow");
+                        let a= varSet("btnColor", c === "yellow" ? "red" : "yellow");
+                    }}
+            >Press me</button>
         </div>
     );
 }

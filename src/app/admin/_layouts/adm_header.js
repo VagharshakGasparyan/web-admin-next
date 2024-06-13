@@ -4,6 +4,7 @@
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {lsGet, lsSet} from "@/functions/ls";
 import BreadCrumb from "@/app/admin/_layouts/breadcrumb";
+import Any from "@/app/admin/_layouts/any";
 // export const revalidate = 200;
 
 export default function AdmHeader() {
@@ -20,7 +21,8 @@ export default function AdmHeader() {
                 <button type={"button"} onClick={toggleSidebar} className={"la la-reorder btn-reorder"}></button>
             </div>
             <div className={"d-flex"} style={{flex:"1", alignItems:"center",padding:"0 10px"}}>User
-                <span style={{display:"inline-block", width:"200px"}}></span> <BreadCrumb/></div>
+                <span style={{display:"inline-block", width:"200px"}}></span> <BreadCrumb/>&nbsp;<Any/></div>
+
         </header>
     );
 }

@@ -3,7 +3,7 @@
 import {useEffect, useState} from "react";
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {lsGet, varGet, varSet, useGLS} from "@/functions/ls";
-import Any from "@/app/admin/_layouts/any";
+
 
 export default function Dashboard() {
     const pathname = usePathname();
@@ -15,10 +15,9 @@ export default function Dashboard() {
             <button style={{backgroundColor: varGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = varGet("btnColor", "yellow");
-                        varSet("btnColor", c === "yellow" ? "red" : "yellow");
+                        varSet("btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button>
-            <Any/>
         </div>
     );
 }

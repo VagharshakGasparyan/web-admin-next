@@ -2,7 +2,7 @@
 
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, lsSet} from "@/functions/ls";
+import {lsGet, lsSet} from "@/functions/gls";
 import BreadCrumb from "@/app/admin/_layouts/breadcrumb";
 import Any from "@/app/admin/_layouts/any";
 // export const revalidate = 200;

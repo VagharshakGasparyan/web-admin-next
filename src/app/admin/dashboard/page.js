@@ -2,7 +2,7 @@
 
 import {useEffect, useState} from "react";
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, varGet, varSet, useGLS} from "@/functions/ls";
+import {lsGet, varGet, varSet, useGLS} from "@/functions/gls";
 
 
 export default function Dashboard() {

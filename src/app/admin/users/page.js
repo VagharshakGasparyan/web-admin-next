@@ -3,7 +3,7 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect} from "react";
-import {varGet, varSet} from "@/functions/ls";
+import {varGet, varSet} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function Users() {

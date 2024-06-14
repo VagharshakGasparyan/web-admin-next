@@ -2,7 +2,7 @@
 
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-// import {lsGet, lsSet} from "@/functions/ls";
+// import {lsGet, lsSet} from "@/functions/gls";
 
 export default function BreadCrumb({}) {
     const router = useRouter();

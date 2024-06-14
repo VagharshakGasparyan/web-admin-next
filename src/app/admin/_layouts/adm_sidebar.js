@@ -3,7 +3,7 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect, useState} from "react";
-import {lsGet} from "@/functions/ls";
+import {lsGet} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function AdmSidebar() {

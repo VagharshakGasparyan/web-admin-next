@@ -1,7 +1,7 @@
 'use client'
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, lsSet, varSet, varGet} from "@/functions/ls";
+import {lsGet, lsSet, varSet, varGet} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function L1() {

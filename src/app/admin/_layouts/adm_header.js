@@ -9,19 +9,20 @@ import Any from "@/app/admin/_layouts/any";
 
 export default function AdmHeader() {
     const pathname = usePathname();
-    const toggleSidebar = ()=>{
+    const toggleSidebar = () => {
         let sidebarOpen = lsGet("_set", true, "sidebarOpen");
         lsSet("_set", !sidebarOpen, "sidebarOpen");
     };
     return (
         <header className={"admin-header"}>
-            <div style={{width:"250px",display:"flex", alignItems:"center"}}>
-                <a style={{flex:1,marginLeft:"10px"}} className={"sidebar"} href={"/admin"}>My Site</a>
+            <div style={{width: "250px", display: "flex", alignItems: "center"}}>
+                <a style={{flex: 1, marginLeft: "10px"}} className={"sidebar"} href={"/admin"}>My Site</a>
 
                 <button type={"button"} onClick={toggleSidebar} className={"la la-reorder btn-reorder"}></button>
             </div>
-            <div className={"d-flex"} style={{flex:"1", alignItems:"center",padding:"0 10px"}}>User
-                <span style={{display:"inline-block", width:"200px"}}></span> <BreadCrumb/>&nbsp;<Any/></div>
+            <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
+            <div className={"d-flex"} style={{alignItems: "center", padding: "0 10px"}}>
+                <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;<Any/></div>
 
         </header>
     );

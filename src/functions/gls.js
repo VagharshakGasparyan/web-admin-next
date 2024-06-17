@@ -74,7 +74,7 @@ function lsSet(localStorageKey, value, jsonKey = null) {
     return true;
 }
 
-function varGet(StateKey, defaultValue, jsonKey = null) {
+function gsGet(StateKey, defaultValue, jsonKey = null) {
     if (("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)) {
         if (jsonKey) {
             if (isTypeJson(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
@@ -87,7 +87,7 @@ function varGet(StateKey, defaultValue, jsonKey = null) {
     return defaultValue;
 }
 
-function varSet(StateKey, value, jsonKey = null) {
+function gsSet(StateKey, value, jsonKey = null) {
     if (jsonKey) {
         try {
             saveToGlobal(["gs", StateKey, jsonKey], value, global);
@@ -115,4 +115,4 @@ function useGLS() {
 }
 
 
-module.exports = {lsGet, lsSet, varGet, varSet, useGLS};
+module.exports = {lsGet, lsSet, gsGet, gsSet, useGLS};

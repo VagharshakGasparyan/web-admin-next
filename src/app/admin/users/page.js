@@ -3,7 +3,7 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect} from "react";
-import {varGet, varSet} from "@/functions/gls";
+import {gsGet, gsSet} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function Users() {
@@ -12,13 +12,13 @@ export default function Users() {
     return (
         <div>
             <h1>USERS PAGE</h1>
-            <button style={{backgroundColor: varGet("btnColor", "yellow")}} className={'btn'}
+            <button style={{backgroundColor: gsGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
-                        let c = varGet("btnColor", "yellow");
-                        varSet("btnColor", c === "yellow" ? "#77f" : "yellow");
+                        let c = gsGet("btnColor", "yellow");
+                        gsSet("btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button>
-            <div style={{height: "150px", backgroundColor: varGet("btnColor", "yellow"), marginTop: 25}}></div>
+            <div style={{height: "150px", backgroundColor: gsGet("btnColor", "yellow"), marginTop: 25}}></div>
         </div>
     );
 }

@@ -7,6 +7,12 @@ import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
 
 export default function Dashboard() {
     const pathname = usePathname();
+    const onLoading = ()=>{
+        gsSet(true, "loading", true);
+        setTimeout(()=>{
+            gsSet(true, "loading", false);
+        }, 10000);
+    }
 
     return (
         <div>
@@ -15,9 +21,10 @@ export default function Dashboard() {
             <button style={{backgroundColor: gsGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = gsGet("btnColor", "yellow");
-                        gsSet("btnColor", c === "yellow" ? "#77f" : "yellow");
+                        gsSet(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>
     );
 }

@@ -27,6 +27,12 @@ function saveToGlobal(keys, value, obj) {
     saveToGlobal(keys.slice(1), value, obj[key]);
 }
 
+function updateState(needToUpdateState) {
+    if (("updateState" in global) && needToUpdateState) {
+        global.updateState();
+    }
+}
+
 function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     if (("ls" in global) && isTypeJson(global.ls) && (localStorageKey in global.ls)) {
         if (jsonKey) {
@@ -50,7 +56,7 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     return val === null ? defaultValue : val;
 }
 
-function lsSet(localStorageKey, value, jsonKey = null) {
+function lsSet(needToUpdateState, localStorageKey, value, jsonKey = null) {
     if (jsonKey) {
         try {
             let val = localStorage.getItem(localStorageKey);
@@ -58,9 +64,7 @@ function lsSet(localStorageKey, value, jsonKey = null) {
             val1[jsonKey] = value;
             localStorage.setItem(localStorageKey, JSON.stringify(val1));
             saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
-            if ("updateState" in global) {
-                global.updateState();
-            }
+            updateState(needToUpdateState);
             return true;
         } catch (e) {
             return false;
@@ -68,9 +72,7 @@ function lsSet(localStorageKey, value, jsonKey = null) {
     }
     localStorage.setItem(localStorageKey, value);
     saveToGlobal(["ls", localStorageKey], value, global);
-    if ("updateState" in global) {
-        global.updateState();
-    }
+    updateState(needToUpdateState);
     return true;
 }
 
@@ -87,22 +89,18 @@ function gsGet(StateKey, defaultValue, jsonKey = null) {
     return defaultValue;
 }
 
-function gsSet(StateKey, value, jsonKey = null) {
+function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {
     if (jsonKey) {
         try {
             saveToGlobal(["gs", StateKey, jsonKey], value, global);
-            if ("updateState" in global) {
-                global.updateState();
-            }
+            updateState(needToUpdateState);
             return true;
         } catch (e) {
             return false;
         }
     }
     saveToGlobal(["gs", StateKey], value, global);
-    if ("updateState" in global) {
-        global.updateState();
-    }
+    updateState(needToUpdateState);
     return true;
 }
 

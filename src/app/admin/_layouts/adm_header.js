@@ -11,7 +11,7 @@ export default function AdmHeader() {
     const pathname = usePathname();
     const toggleSidebar = () => {
         let sidebarOpen = lsGet("_set", true, "sidebarOpen");
-        lsSet("_set", !sidebarOpen, "sidebarOpen");
+        lsSet(true, "_set", !sidebarOpen, "sidebarOpen");
     };
     return (
         <header className={"admin-header"}>

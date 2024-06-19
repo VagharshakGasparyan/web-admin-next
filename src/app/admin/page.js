@@ -12,7 +12,7 @@ export default function L1() {
             <button style={{backgroundColor: gsGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = gsGet("btnColor", "yellow");
-                        gsSet("btnColor", c === "yellow" ? "red" : "yellow");
+                        gsSet(true, "btnColor", c === "yellow" ? "red" : "yellow");
                     }}
             >Press me</button>
         </div>

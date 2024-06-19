@@ -4,7 +4,8 @@ import {useRouter, redirect, usePathname} from 'next/navigation';
 import {createContext, useContext, useEffect, useState} from "react";
 import AdmHeader from "@/app/admin/_layouts/adm_header";
 import AdmSidebar from "@/app/admin/_layouts/adm_sidebar";
-import {useGLS} from "@/functions/gls";
+import Loader from "@/app/admin/_layouts/loader";
+import {useGLS, gsGet} from "@/functions/gls";
 // export const revalidate = 200;
 
 
@@ -31,6 +32,7 @@ export default function Admin({children}) {
                     </GLSContext.Provider>
                 </main>
             </section>
-        </>:<div style={{fontSize:"50px", color:"#161c2d"}} className={"d-flex align-items-center justify-content-center flex-1"}>Loading...</div>
+            {gsGet("loading", false) ? <Loader/> : <></>}
+        </>:<Loader/>
     );
 }

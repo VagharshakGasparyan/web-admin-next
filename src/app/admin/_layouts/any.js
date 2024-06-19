@@ -9,7 +9,7 @@ import {useGLS, gsGet} from "@/functions/gls";
 
 
 export default function Any() {
-    console.log("ANY");
+    // console.log("ANY");
     return (
         <div>ANY{gsGet("btnColor", "yellow")}</div>
     );

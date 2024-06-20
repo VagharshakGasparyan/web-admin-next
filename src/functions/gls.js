@@ -3,6 +3,9 @@
 const {useState, createContext} = require("react");
 
 function isJson(data) {
+    if(typeof data !== "string"){
+        return false;
+    }
     try {
         JSON.parse(data);
         return true;

@@ -3,6 +3,7 @@
 import {useEffect, useState} from "react";
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
+import Loader from "@/app/admin/_layouts/loader";
 
 
 export default function Dashboard() {
@@ -24,7 +25,7 @@ export default function Dashboard() {
                         gsSet(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button>
-            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>Միացնել լոադերը 10 վայրկյանով</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gsGet("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>
     );
 }

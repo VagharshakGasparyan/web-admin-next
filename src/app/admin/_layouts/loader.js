@@ -28,19 +28,21 @@ export default function Loader({type}) {
             let x1 = (Math.sin(a1) * 40 + 50).toPrecision(10);
             let y1 = (Math.cos(a1) * 40 + 50).toPrecision(10);
             inner.push(
-                <circle key={"crc" + i} cx="50" cy="50" r="1" fill="#123">
+                <circle key={"crc" + i} cx="50" cy="50" r="1" fill="#123" strokeWidth={1} stroke={"#fff"}>
                     <animate attributeName="cx" values={"50;" + x} keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                     <animate attributeName="cy" values={"50;" + y} keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                     <animate attributeName="r" values="1;10" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                     <animate attributeName="fill" values="#123f;#1230" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
+                    <animate attributeName="stroke" values="#ffff;#fff0" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                 </circle>
             );
             inner.push(
-                <circle key={"crcw" + i} cx="50" cy="50" r="1" fill="#123">
+                <circle key={"crcw" + i} cx="50" cy="50" r="1" fill="#123" strokeWidth={1} stroke={"#000"}>
                     <animate attributeName="cx" values={"50;" + x1} keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                     <animate attributeName="cy" values={"50;" + y1} keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                     <animate attributeName="r" values="1;10" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
-                    <animate attributeName="fill" values="#123f;#1230" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
+                    <animate attributeName="fill" values="#ffff;#fff0" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
+                    <animate attributeName="stroke" values="#123f;#1230" keyTimes={"0;1"} dur={dur + "s"} repeatCount="indefinite" begin={b}/>
                 </circle>
             );
             k++;

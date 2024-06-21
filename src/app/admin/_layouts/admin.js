@@ -13,7 +13,6 @@ export default function Admin({children}) {
     const [initialised, setInitialised] = useState(false);
 
     const GLSContext = useGLS();
-
     useEffect(()=>{
         setInitialised(true);
     }, []);

@@ -8,6 +8,11 @@ import Loader from "@/app/admin/_layouts/loader";
 
 
 export default function Dashboard() {
+    const base_url = process.env.BASE_API_URL;
+
+    useEffect(()=>{
+        console.log("process.env=", process.env);
+    }, []);
     const pathname = usePathname();
     const onLoading = ()=>{
         loaderOn();
@@ -19,6 +24,7 @@ export default function Dashboard() {
     return (
         <div>
             <h1>DASHBOARD PAGE</h1>
+            <div>{base_url}</div>
             <div>{lsGet("_set", true, "sidebarOpen") ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
             <button style={{backgroundColor: gsGet("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{

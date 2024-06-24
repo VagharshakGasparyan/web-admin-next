@@ -3,15 +3,16 @@
 import {useEffect, useState} from "react";
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
+import {loaderOn, loaderOff} from "@/functions/f";
 import Loader from "@/app/admin/_layouts/loader";
 
 
 export default function Dashboard() {
     const pathname = usePathname();
     const onLoading = ()=>{
-        gsSet(true, "loading", true);
+        loaderOn();
         setTimeout(()=>{
-            gsSet(true, "loading", false);
+            loaderOff();
         }, 10000);
     }
 

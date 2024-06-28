@@ -7,6 +7,7 @@ import {lsGet} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function AdmSidebar() {
+    console.log('AdmSidebar');
     const router = useRouter();
     const pathname = usePathname();
     const pats = pathname.split("/");

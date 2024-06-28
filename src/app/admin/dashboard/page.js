@@ -8,10 +8,10 @@ import Loader from "@/app/admin/_layouts/loader";
 
 
 export default function Dashboard() {
-    const base_url = process.env.BASE_API_URL;
-
+    const base_url = process.env.NEXT_PUBLIC_BASE_API_URL;
+    console.log('My Application Version', process.env.NEXT_PUBLIC_BASE_API_URL);
     useEffect(()=>{
-        console.log("process.env=", process.env);
+        console.log("process.env=", base_url);
     }, []);
     const pathname = usePathname();
     const onLoading = ()=>{

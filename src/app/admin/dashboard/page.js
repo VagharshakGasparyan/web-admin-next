@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
 import {loaderOn, loaderOff} from "@/functions/f";
 import Loader from "@/app/admin/_layouts/loader";
+import Any from "@/app/admin/_layouts/any";
 
 
 export default function Dashboard() {
@@ -44,6 +45,7 @@ export default function Dashboard() {
                         dispatch({type:"d_st/someAction1", payload: "bbb"});
                     }}
             >Pressyano mio {val}</button>
+            <Any></Any>
             <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gsGet("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>
     );

@@ -22,7 +22,7 @@ export default function AdmHeader() {
             </div>
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
             <div className={"d-flex"} style={{alignItems: "center", padding: "0 10px"}}>
-                <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;<Any/></div>
+                <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;{/*<Any/>*/}</div>
 
         </header>
     );

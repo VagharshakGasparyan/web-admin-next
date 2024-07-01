@@ -14,6 +14,10 @@ export default function AdmSidebar() {
     const isOpen = ()=>{
         return lsGet("_set", true, "sidebarOpen");
     }
+    useEffect(()=>{
+        // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
+        console.log("AdmSidebar useEffect");
+    }, []);
     // console.log(pathname, pats);
     const myBoards = () => {
         let boards = [{r: "dashboard", c: "la la-home"}, {r: "users", c: "la la-users"}, {r: "settings", c: "la la-cog"}];

@@ -3,10 +3,11 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect, useState} from "react";
-import {lsGet} from "@/functions/gls";
+import {lsGet, useGLS} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function AdmSidebar() {
+    useGLS();
     console.log('AdmSidebar');
     const router = useRouter();
     const pathname = usePathname();

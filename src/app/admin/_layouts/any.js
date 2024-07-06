@@ -11,15 +11,15 @@ import {useSelector} from "react-redux";
 
 export default function Any() {
     // const val ="---";
-    const val = useSelector((store) => {
-        return store.stReducer.val;
-    });
+    // const val = useSelector((store) => {
+    //     return store.stReducer.val;
+    // });
     console.log("ANY");
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
         console.log("useEffect ANY");
     }, []);
     return (
-        <div>ANY{gsGet("btnColor", "yellow")} {val}</div>
+        <div>ANY{gsGet("btnColor", "yellow")} {"val"}</div>
     );
 }

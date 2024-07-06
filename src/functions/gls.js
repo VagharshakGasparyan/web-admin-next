@@ -1,6 +1,6 @@
 'use client'
 
-const {useState, createContext} = require("react");
+const {useState, createContext, useEffect, useContext} = require("react");
 
 function isJson(data) {
     if(typeof data !== "string"){
@@ -107,13 +107,44 @@ function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {
     return true;
 }
 
+const StateContext = createContext("state");
+
 function useGLS() {
+    // const [state, setState] = useState(false);
+    // global.updateState = () => {
+    //     setState(!state);
+    // };
+    // return createContext("state");
+    const context = useContext(StateContext);
+    if (context === undefined) {
+        throw new Error('useGLS must be used in StateProvider');
+    }
+    return context;
+}
+
+function StateProvider({children}) {
+
+    console.log("StateProvider");
     const [state, setState] = useState(false);
+    console.log(state);
+
+
+    useEffect(()=>{
+        console.log("useEffect StateProvider");
+    }, []);
     global.updateState = () => {
         setState(!state);
     };
-    return createContext("state");
+    // const updateState = () => {
+    //     setState(prevState => !prevState);
+    // };
+
+    return (
+        <StateContext.Provider value={{state, setState}}>
+            {children}
+        </StateContext.Provider>
+    );
 }
 
 
-module.exports = {lsGet, lsSet, gsGet, gsSet, useGLS};
+module.exports = {lsGet, lsSet, gsGet, gsSet, useGLS, StateProvider};

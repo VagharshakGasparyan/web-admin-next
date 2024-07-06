@@ -10,16 +10,21 @@ import Any from "@/app/admin/_layouts/any";
 
 
 export default function Dashboard() {
-    const dispatch = useDispatch();
-    const val = useSelector((store) => {
-        return store.stReducer.val;
-    });
+    // useGLS();
+    const { state, setState } = useGLS();
+    console.log("state=", state);
+    // const dispatch = useDispatch();
+    // const val = useSelector((store) => {
+    //     return store.stReducer.val;
+    // });
 
     const base_url = process.env.NEXT_PUBLIC_BASE_API_URL;
-    console.log("base_url=", base_url);
+    // console.log("base_url=", base_url);
+    console.log("Dashboard");
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
-        console.log("process.env=", base_url);
+        // console.log("process.env=", base_url);
+        console.log("useEffect Dashboard");
     }, []);
     const pathname = usePathname();
     const onLoading = ()=>{
@@ -44,7 +49,7 @@ export default function Dashboard() {
                     onClick={()=>{
                         dispatch({type:"d_st/someAction1", payload: "bbb"});
                     }}
-            >Pressyano mio {val}</button>
+            >Pressyano mio {"val"}</button>
             <Any></Any>
             <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gsGet("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>

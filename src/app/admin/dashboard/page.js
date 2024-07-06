@@ -10,9 +10,9 @@ import Any from "@/app/admin/_layouts/any";
 
 
 export default function Dashboard() {
-    // useGLS();
-    const { state, setState } = useGLS();
-    console.log("state=", state);
+    useGLS();
+    // const { state, setState } = useGLS();
+    // console.log("state=", state);
     // const dispatch = useDispatch();
     // const val = useSelector((store) => {
     //     return store.stReducer.val;

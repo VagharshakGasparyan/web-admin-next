@@ -1,10 +1,11 @@
 'use client'
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, lsSet, gsSet, gsGet} from "@/functions/gls";
+import {lsGet, lsSet, gsSet, gsGet, useGLS} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function L1() {
+    useGLS();
     const pathname = usePathname();
     return (
         <div>

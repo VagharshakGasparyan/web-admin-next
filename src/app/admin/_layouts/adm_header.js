@@ -2,12 +2,13 @@
 
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, lsSet} from "@/functions/gls";
+import {lsGet, lsSet, useGLS} from "@/functions/gls";
 import BreadCrumb from "@/app/admin/_layouts/breadcrumb";
 import Any from "@/app/admin/_layouts/any";
 // export const revalidate = 200;
 
 export default function AdmHeader() {
+    useGLS();
     const pathname = usePathname();
     const toggleSidebar = () => {
         let sidebarOpen = lsGet("_set", true, "sidebarOpen");

@@ -10,6 +10,7 @@ import {useSelector} from "react-redux";
 
 
 export default function Any() {
+    useGLS();
     // const val ="---";
     // const val = useSelector((store) => {
     //     return store.stReducer.val;

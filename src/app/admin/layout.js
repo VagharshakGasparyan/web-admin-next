@@ -4,12 +4,14 @@
 
 import "./admin.css";
 import "./awesome.css";
+import {StateProvider} from "@/functions/gls";
 // import "../../output.css";
 
 import {Metadata} from 'next';
 import AdmHeader from "./_layouts/adm_header";
 import AdmSidebar from "./_layouts/adm_sidebar";
 import Admin from "./_layouts/admin";
+import Loader from "@/app/admin/_layouts/loader";
 // import {useState} from "react";
 export const viewport = {
     themeColor: 'black',
@@ -52,7 +54,9 @@ export default async function LayoutAdmin({children}) {
             <meta name="viewport" content="width=device-width, initial-scale=1" />
         </head>
         <body>
+        <StateProvider loader={<Loader/>}>
             <Admin children={children} />
+        </StateProvider>
         </body>
         </html>
     );

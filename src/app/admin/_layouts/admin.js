@@ -15,31 +15,24 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 export default function Admin({children}) {
 
-    // const GLSContext = useGLS();
-
+    useGLS();
     const pathname = usePathname();
 
-
     return (
-        <StateProvider>
+        <>
             <AdmHeader />
             <section className={"admin-section"}>
                 <AdmSidebar />
                 <main className={"admin-main"}>
-                    {/*<GLSContext.Provider value={"state"}>*/}
-
                         {/*<Provider store={store}>*/}
                         {/*    <PersistGate loading={null} persistor={persist}>*/}
                         {/*        {children}*/}
                         {/*    </PersistGate>*/}
                         {/*</Provider>*/}
-
-                    {/*    /!*{children}*!/*/}
-                    {/*</GLSContext.Provider>*/}
                     {children}
                 </main>
             </section>
             {gsGet("loading", false) ? <Loader/> : <></>}
-        </StateProvider>
+        </>
     );
 }

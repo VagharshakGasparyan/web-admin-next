@@ -3,10 +3,11 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect} from "react";
-import {gsGet, gsSet} from "@/functions/gls";
+import {gsGet, gsSet, useGLS} from "@/functions/gls";
 // export const revalidate = 200;
 
 export default function Users() {
+    useGLS();
     const pathname = usePathname();
 
     return (

@@ -46,7 +46,13 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
             return global.ls[localStorageKey];
         }
     }
-    let val = localStorage.getItem(localStorageKey);
+    let val = null;
+    try {
+        val = localStorage.getItem(localStorageKey);
+    }catch (e) {
+
+    }
+
     if (jsonKey) {
         try {
             let val1 = JSON.parse(val)[jsonKey];
@@ -110,11 +116,6 @@ function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {
 const StateContext = createContext("state");
 
 function useGLS() {
-    // const [state, setState] = useState(false);
-    // global.updateState = () => {
-    //     setState(!state);
-    // };
-    // return createContext("state");
     const context = useContext(StateContext);
     if (context === undefined) {
         throw new Error('useGLS must be used in StateProvider');
@@ -122,26 +123,19 @@ function useGLS() {
     return context;
 }
 
-function StateProvider({children}) {
-
-    console.log("StateProvider");
+function StateProvider({children, loader}) {
     const [state, setState] = useState(false);
-    console.log(state);
-
-
+    const [initialized, setInitialized] = useState(false);
     useEffect(()=>{
         console.log("useEffect StateProvider");
+        setInitialized(true);
     }, []);
     global.updateState = () => {
         setState(!state);
     };
-    // const updateState = () => {
-    //     setState(prevState => !prevState);
-    // };
-
     return (
         <StateContext.Provider value={{state, setState}}>
-            {children}
+            {initialized ? children : loader}
         </StateContext.Provider>
     );
 }

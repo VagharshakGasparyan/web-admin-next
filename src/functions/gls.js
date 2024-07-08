@@ -134,7 +134,7 @@ function StateProvider({children, loader}) {
         setState(!state);
     };
     return (
-        <StateContext.Provider value={{state, setState}}>
+        <StateContext.Provider value={[state, setState]}>
             {initialized ? children : loader}
         </StateContext.Provider>
     );

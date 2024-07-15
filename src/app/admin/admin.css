@@ -41,6 +41,10 @@ body{
     flex-direction: column;
     transition: margin-left 300ms;
 }
+.sidebar-group{
+    display: flex;
+    flex-direction: column;
+}
 a.sidebar{
     color: var(--color-1);
     text-decoration: none;

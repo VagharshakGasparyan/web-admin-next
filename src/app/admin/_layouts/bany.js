@@ -8,8 +8,6 @@ import {useGLS, gsGet} from "@/functions/gls";
 import {useSelector} from "react-redux";
 // export const revalidate = 200;
 
-
-
 export default function Bany() {
     useGLS();
     // const val ="---";

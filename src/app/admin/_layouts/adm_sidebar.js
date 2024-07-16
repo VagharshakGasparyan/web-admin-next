@@ -13,7 +13,6 @@ export default function AdmSidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const pats = pathname.split("/");
-    const [b, setB] = useState(true);
 
     const isOpen = ()=>{
         return lsGet("_set", true, "sidebarOpen");
@@ -41,16 +40,6 @@ export default function AdmSidebar() {
             {/*<a className={"sidebar la la-users " + (pats[2] === ("users") ? "selected" : "")} href={"/admin/users"}> Users</a>*/}
             {/*<a className={"sidebar la la-cog "} href={"/admin/settings"}> Settings</a>*/}
             {myBoards()}
-            <div className={"dropdown" + (b ? "" : " open")}>
-                <div style={{cursor:"pointer", userSelect:"none"}} onClick={()=>{
-                    setB(!b);
-                }}>All Settings</div>
-                <div className={"sidebar-group"}>
-                    <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 1</a>
-                    <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 2</a>
-                    <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 3</a>
-                </div>
-            </div>
             <hr style={{width:"100%"}}/>
             <Dropdown open={false} content={"All Settings"}>
                 <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 1</a>

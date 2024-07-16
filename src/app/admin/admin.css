@@ -41,10 +41,7 @@ body{
     flex-direction: column;
     transition: margin-left 300ms;
 }
-.sidebar-group{
-    display: flex;
-    flex-direction: column;
-}
+
 a.sidebar{
     color: var(--color-1);
     text-decoration: none;
@@ -62,6 +59,23 @@ a.sidebar.selected{
     flex: 1;
     padding: 10px;
 }
+.dropdown{
+    overflow: hidden;
+}
+.dropdown .sidebar-group{
+    display: flex;
+    flex-direction: column;
+    transition: all 500ms;
+    transform: scaleY(0);
+    height: 0;
+    opacity: 0;
+}
+.dropdown.open .sidebar-group{
+    transform: scaleY(1);
+    height: 70px;
+    opacity: 1;
+}
+
 .loader{
     z-index: 999;
     position: fixed;

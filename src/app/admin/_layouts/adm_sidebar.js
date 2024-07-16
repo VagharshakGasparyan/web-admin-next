@@ -4,6 +4,7 @@
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {useEffect, useState} from "react";
 import {lsGet, useGLS} from "@/functions/gls";
+import Dropdown from "@/app/admin/_layouts/dropdown";
 // export const revalidate = 200;
 
 export default function AdmSidebar() {
@@ -12,6 +13,8 @@ export default function AdmSidebar() {
     const router = useRouter();
     const pathname = usePathname();
     const pats = pathname.split("/");
+    const [b, setB] = useState(true);
+
     const isOpen = ()=>{
         return lsGet("_set", true, "sidebarOpen");
     }
@@ -38,14 +41,23 @@ export default function AdmSidebar() {
             {/*<a className={"sidebar la la-users " + (pats[2] === ("users") ? "selected" : "")} href={"/admin/users"}> Users</a>*/}
             {/*<a className={"sidebar la la-cog "} href={"/admin/settings"}> Settings</a>*/}
             {myBoards()}
-            <div className={"dropdown"}>
-                <div style={{cursor:"pointer", userSelect:"none"}}>All Settings</div>
+            <div className={"dropdown" + (b ? "" : " open")}>
+                <div style={{cursor:"pointer", userSelect:"none"}} onClick={()=>{
+                    setB(!b);
+                }}>All Settings</div>
                 <div className={"sidebar-group"}>
                     <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 1</a>
                     <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 2</a>
                     <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 3</a>
                 </div>
             </div>
+            <hr style={{width:"100%"}}/>
+            <Dropdown open={false} content={"All Settings"}>
+                <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 1</a>
+                <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 2</a>
+                <a className={"sidebar la la-cog "} href={"/admin/settings"}> Setting 3</a>
+            </Dropdown>
+            <hr style={{width:"100%"}}/>
         </div>
     );
 }

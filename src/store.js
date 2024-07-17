@@ -32,7 +32,6 @@ const reducer = createSlice({
     },
     reducers: {
         someAction1: (state, action) => {
-            console.log(action);
             state.page1val = action.payload;
         },
 

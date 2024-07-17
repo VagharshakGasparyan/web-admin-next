@@ -20,11 +20,11 @@ export default function Dashboard() {
 
     const base_url = process.env.NEXT_PUBLIC_BASE_API_URL;
     // console.log("base_url=", base_url);
-    console.log("Dashboard");
+    // console.log("Dashboard");
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
         // console.log("process.env=", base_url);
-        console.log("useEffect Dashboard");
+        // console.log("useEffect Dashboard");
     }, []);
     const pathname = usePathname();
     const onLoading = ()=>{

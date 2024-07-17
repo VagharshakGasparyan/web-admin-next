@@ -127,7 +127,6 @@ function StateProvider({children, loader}) {
     const [state, setState] = useState(false);
     const [initialized, setInitialized] = useState(false);
     useEffect(()=>{
-        console.log("useEffect StateProvider");
         setInitialized(true);
     }, []);
     global.updateState = () => {

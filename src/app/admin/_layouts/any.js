@@ -17,10 +17,10 @@ export default function Any() {
     //     return store.stReducer.val;
     // });
     const [c, setC] = useState(false);
-    console.log("ANY");
+    // console.log("ANY");
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
-        console.log("useEffect ANY");
+        // console.log("useEffect ANY");
     }, []);
     return (
         <div style={{backgroundColor: c ? "#0ff" : "#999"}} onClick={() => {

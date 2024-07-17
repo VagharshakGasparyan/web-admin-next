@@ -42,13 +42,13 @@ body{
     transition: margin-left 300ms;
 }
 
-a.sidebar{
+.sidebar{
     color: var(--color-1);
     text-decoration: none;
     padding: 3px 5px;
     cursor: pointer;
 }
-a.sidebar:hover{
+.sidebar:hover{
     color: var(--color-3);
     text-decoration: none;
 }
@@ -66,15 +66,16 @@ a.sidebar.selected{
     display: flex;
     flex-direction: column;
     transition: all 500ms;
-    transform: scaleY(0);
-    height: 0;
-    opacity: 0;
+    /*transform: scaleY(0);*/
+    padding-left: 15px;
+    /*height: 0;*/
+    /*opacity: 0;*/
 }
-.dropdown.open .sidebar-group{
-    transform: scaleY(1);
-    height: 70px;
-    opacity: 1;
-}
+/*.dropdown.open .sidebar-group{*/
+/*    transform: scaleY(1);*/
+/*    height: auto;*/
+/*    opacity: 1;*/
+/*}*/
 
 .loader{
     z-index: 999;

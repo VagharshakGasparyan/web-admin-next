@@ -14,14 +14,17 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 
 export default function Admin({children}) {
-
     useGLS();
     const pathname = usePathname();
 
     useEffect(()=>{
+        // console.log("global=", global);
         window.addEventListener('beforeunload', (ev)=>{
-            alert("stop");
-            lsSet(false, "_set", new Date(), "__beforeunload__www__");
+            let d = new Date();
+            let m = d.getMinutes();
+            let s = d.getSeconds();
+            let hms = d.getHours() + ":" + (m > 9 ? "" : "0") + m + ":" + (s > 9 ? "" : "0") + s;
+            lsSet(false, "_set", hms, "__on__beforeunload__");
         });
     }, []);
 

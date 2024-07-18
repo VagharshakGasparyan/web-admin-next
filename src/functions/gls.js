@@ -21,6 +21,9 @@ function isTypeJson(data) {
 function saveToGlobal(keys, value, obj) {
     let key = keys[0];
     if (keys.length < 2) {
+        if(!isTypeJson(obj)){
+            obj = {};
+        }
         obj[key] = value;
         return;
     }
@@ -52,7 +55,6 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     }catch (e) {
 
     }
-
     if (jsonKey) {
         try {
             let val1 = JSON.parse(val)[jsonKey];

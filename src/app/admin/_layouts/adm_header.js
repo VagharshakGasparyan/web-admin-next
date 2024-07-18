@@ -12,6 +12,7 @@ export default function AdmHeader() {
     const pathname = usePathname();
     const toggleSidebar = () => {
         let sidebarOpen = lsGet("_set", true, "sidebarOpen");
+        // console.log(sidebarOpen);
         lsSet(true, "_set", !sidebarOpen, "sidebarOpen");
     };
     return (
@@ -22,6 +23,11 @@ export default function AdmHeader() {
                 <button type={"button"} onClick={toggleSidebar} className={"la la-reorder btn-reorder"}></button>
             </div>
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
+            <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>
+                <button type={"button"} onClick={()=>{
+                    lsSet(true, "_set", "{}");
+                }}>off locale storage</button>
+            </div>
             <div className={"d-flex"} style={{alignItems: "center", padding: "0 10px"}}>
                 <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;{/*<Any/>*/}</div>
 

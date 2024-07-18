@@ -20,7 +20,7 @@ export default function AdmSidebar() {
     }
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });
-        console.log(global.ls);
+        // console.log(global.ls);
     }, []);
 
     // console.log(pathname, pats);

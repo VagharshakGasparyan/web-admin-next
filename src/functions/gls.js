@@ -57,9 +57,13 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     }
     if (jsonKey) {
         try {
-            let val1 = JSON.parse(val)[jsonKey];
-            saveToGlobal(["ls", localStorageKey, jsonKey], val1, global);
-            return val1;
+            let val1 = JSON.parse(val);
+            if(jsonKey in val1){
+                let val2 = val1[jsonKey];
+                saveToGlobal(["ls", localStorageKey, jsonKey], val2, global);
+                return val2;
+            }
+            return defaultValue;
         } catch (e) {
             return defaultValue;
         }

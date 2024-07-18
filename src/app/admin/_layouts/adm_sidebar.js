@@ -52,6 +52,13 @@ export default function AdmSidebar() {
                 <a className={"sidebar la la-cog " + (pats[2] === "settings" ? " selected" : "")} onClick={()=>{toRouter("settings")}}> Settings</a>
             </Dropdown>
             <hr style={{width:"100%"}}/>
+            <Dropdown open={true} content={"All Settings2"}>
+                <a className={"sidebar la la-cog " + (pats[2] === "dashboard" ? " selected" : "")} onClick={()=>{toRouter("dashboard")}}> Dashboard</a>
+                <a className={"sidebar la la-users " + (pats[2] === "users" ? " selected" : "")} onClick={()=>{toRouter("users")}}> Users</a>
+                <a className={"sidebar la la-cog " + (pats[2] === "settings" ? " selected" : "")} onClick={()=>{toRouter("settings")}}> Settings</a>
+                <a className={"sidebar la la-cog " + (pats[2] === "settings" ? " selected" : "")} onClick={()=>{toRouter("settings")}}> Settings</a>
+            </Dropdown>
+            <hr style={{width:"100%"}}/>
         </div>
     );
 }

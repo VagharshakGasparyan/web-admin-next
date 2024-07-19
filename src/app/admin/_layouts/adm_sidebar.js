@@ -15,7 +15,7 @@ export default function AdmSidebar() {
 
 
     const isOpen = ()=>{
-        return gls.l.get("_set", true, "sidebarOpen");
+        return gls.l.get(["_set", "sidebarOpen"], true);
     }
     useEffect(()=>{
         // dispatch({ type: "d_st/setUserData", payload: {"json": "mson"} });

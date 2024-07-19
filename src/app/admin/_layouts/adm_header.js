@@ -11,10 +11,10 @@ export default function AdmHeader() {
     const gls = GLS();
     const pathname = usePathname();
     const toggleSidebar = () => {
-        let sidebarOpen = gls.l.get("_set", true, "sidebarOpen");
+        let sidebarOpen = gls.l.get(["_set", "sidebarOpen"], true);
         gls.l.set(true, ["_set", "sidebarOpen"], !sidebarOpen);
     };
-    console.log("global.ls=", global.ls);
+    // console.log("global.ls=", global.ls);
     return (
         <header className={"admin-header"}>
             <div style={{width: "250px", display: "flex", alignItems: "center"}}>

@@ -45,42 +45,37 @@ function delByKeys(keys, obj) {
     delByKeys(keys.slice(1), obj[key]);
 }
 
+function getByKeys(keys, obj) {
+    let key = keys[0];
+    if(!isJsonTypeObj(obj) || !(key in obj)){
+        return undefined;
+    }
+    if(keys.length < 2){
+        return obj[key];
+    }
+    return getByKeys(keys.slice(1), obj[key]);
+}
+
 function updateState(needToUpdateState) {
     if (("updateState" in global) && needToUpdateState) {
         global.updateState();
     }
 }
 
-function lsGet(localStorageKey, defaultValue, jsonKey = null) {
-    if (("ls" in global) && isJsonTypeObj(global.ls) && (localStorageKey in global.ls)) {
-        if (jsonKey) {
-            if (isJsonTypeObj(global.ls[localStorageKey]) && (jsonKey in global.ls[localStorageKey])) {
-                return global.ls[localStorageKey][jsonKey];
-            }
-        } else {
-            return global.ls[localStorageKey];
+function lsGet(keys, defaultValue) {
+    let key = keys[0];
+    let val = getByKeys(["ls", ...keys], global);
+    if(val === undefined){
+        let val1 = localStorage.getItem(key);
+        if(keys.length > 1){
+            val1 = isJsonString(val1) ? JSON.parse(val1) : undefined;
+        }
+        if(val1 !== undefined){
+            global.ls = {[key]: val1};
+            val = getByKeys(["ls", ...keys], global);
         }
     }
-    let val = null;
-    try {
-        val = localStorage.getItem(localStorageKey);
-    }catch (e) {
-
-    }
-    if (jsonKey) {
-        try {
-            let val1 = JSON.parse(val);
-            if(jsonKey in val1){
-                let val2 = val1[jsonKey];
-                saveByKeys(["ls", localStorageKey, jsonKey], val2, global);
-                return val2;
-            }
-            return defaultValue;
-        } catch (e) {
-            return defaultValue;
-        }
-    }
-    return val === null ? defaultValue : val;
+    return val === undefined ? defaultValue : val;
 }
 
 function lsSet(needToUpdateState, keys, value) {

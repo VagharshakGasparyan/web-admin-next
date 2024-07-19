@@ -38,7 +38,7 @@ export default function Dashboard() {
         <div>
             <h1>DASHBOARD PAGE</h1>
             <div>{base_url}</div>
-            <div>{gls.l.get("_set", true, "sidebarOpen") ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
+            <div>{gls.l.get(["_set", "sidebarOpen"], true) ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
             <button style={{backgroundColor: gls.g.get("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = gls.g.get("btnColor", "yellow");

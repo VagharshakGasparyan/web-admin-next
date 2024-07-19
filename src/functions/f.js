@@ -1,10 +1,10 @@
-import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
+import {gls} from "@/functions/gls";
 
 function loaderOn() {
-    gsSet(true, "loading", true);
+    gls.g.set(true, "loading", true);
 }
 function loaderOff() {
-    gsSet(true, "loading", false);
+    gls.g.set(true, "loading", false);
 }
 
 module.exports = {loaderOn, loaderOff};

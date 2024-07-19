@@ -2,18 +2,17 @@
 
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
-import {lsGet, lsSet, useGLS} from "@/functions/gls";
+import {GLS} from "@/functions/gls";
 import BreadCrumb from "@/app/admin/_layouts/breadcrumb";
 import Any from "@/app/admin/_layouts/any";
 // export const revalidate = 200;
 
 export default function AdmHeader() {
-    useGLS();
+    const gls = GLS();
     const pathname = usePathname();
     const toggleSidebar = () => {
-        let sidebarOpen = lsGet("_set", true, "sidebarOpen");
-        // console.log(sidebarOpen);
-        lsSet(true, "_set", !sidebarOpen, "sidebarOpen");
+        let sidebarOpen = gls.l.get("_set", true, "sidebarOpen");
+        gls.l.set(true, "_set", !sidebarOpen, "sidebarOpen");
     };
     return (
         <header className={"admin-header"}>
@@ -25,11 +24,11 @@ export default function AdmHeader() {
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>
                 <button type={"button"} onClick={()=>{
-                    lsSet(true, "_set", "{}");
+                    gls.l.set(true, "_set", "{}");
                 }}>off locale storage</button>
             </div>
             <div className={"d-flex"} style={{alignItems: "center", padding: "0 10px"}}>
-                <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;{/*<Any/>*/}</div>
+                <span style={{display: "inline-block"}}></span> <BreadCrumb/>&nbsp;</div>
 
         </header>
     );

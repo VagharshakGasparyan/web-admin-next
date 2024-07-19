@@ -5,7 +5,7 @@ import {createContext, useContext, useEffect, useState} from "react";
 import AdmHeader from "@/app/admin/_layouts/adm_header";
 import AdmSidebar from "@/app/admin/_layouts/adm_sidebar";
 import Loader from "@/app/admin/_layouts/loader";
-import {useGLS, gsGet, StateProvider, lsSet} from "@/functions/gls";
+import {GLS} from "@/functions/gls";
 
 import { Provider } from 'react-redux';
 import {store, persist} from '@/store';
@@ -14,7 +14,7 @@ import { PersistGate } from 'redux-persist/integration/react';
 
 
 export default function Admin({children}) {
-    useGLS();
+    const gls = GLS();
     const pathname = usePathname();
 
     useEffect(()=>{
@@ -24,7 +24,7 @@ export default function Admin({children}) {
             let m = d.getMinutes();
             let s = d.getSeconds();
             let hms = d.getHours() + ":" + (m > 9 ? "" : "0") + m + ":" + (s > 9 ? "" : "0") + s;
-            lsSet(false, "_set", hms, "__on__beforeunload__");
+            gls.l.set(false, "_set", hms, "__on__beforeunload__");
         });
     }, []);
 
@@ -42,7 +42,7 @@ export default function Admin({children}) {
                     {children}
                 </main>
             </section>
-            {gsGet("loading", false) ? <Loader/> : <></>}
+            {gls.g.get("loading", false) ? <Loader/> : <></>}
         </>
     );
 }

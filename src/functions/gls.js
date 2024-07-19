@@ -91,6 +91,26 @@ function lsSet(needToUpdateState, localStorageKey, value, jsonKey = null) {
     return true;
 }
 
+function lsDel(needToUpdateState, localStorageKey, value, jsonKey = null) {
+    if (jsonKey) {
+        try {
+            let val = localStorage.getItem(localStorageKey);
+            let val1 = isJson(val) ? JSON.parse(val) : {};
+            val1[jsonKey] = value;
+            localStorage.setItem(localStorageKey, JSON.stringify(val1));
+            saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
+            updateState(needToUpdateState);
+            return true;
+        } catch (e) {
+            return false;
+        }
+    }
+    localStorage.setItem(localStorageKey, value);
+    saveToGlobal(["ls", localStorageKey], value, global);
+    updateState(needToUpdateState);
+    return true;
+}
+
 function gsGet(StateKey, defaultValue, jsonKey = null) {
     if (("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)) {
         if (jsonKey) {
@@ -129,6 +149,32 @@ function useGLS() {
     return context;
 }
 
+const gls = {
+    g: {
+        get: gsGet,
+        set: gsSet,
+        del: {},
+    },
+    l: {
+        get: lsGet,
+        set: lsSet,
+        del: lsDel,
+    },
+    s: {
+
+    }
+};
+
+function GLS() {
+    const context = useContext(StateContext);
+    if (context === undefined) {
+        throw new Error('GLS must be used in StateProvider');
+    }
+    return gls;
+}
+
+
+
 function StateProvider({children, loader}) {
     const [state, setState] = useState(false);
     const [initialized, setInitialized] = useState(false);
@@ -146,4 +192,4 @@ function StateProvider({children, loader}) {
 }
 
 
-module.exports = {lsGet, lsSet, gsGet, gsSet, useGLS, StateProvider};
+module.exports = {GLS, gls, StateProvider};

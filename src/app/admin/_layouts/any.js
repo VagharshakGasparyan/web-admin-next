@@ -4,14 +4,14 @@ import {useRouter, redirect, usePathname} from 'next/navigation';
 import {createContext, useContext, useEffect, useState} from "react";
 import AdmHeader from "@/app/admin/_layouts/adm_header";
 import AdmSidebar from "@/app/admin/_layouts/adm_sidebar";
-import {useGLS, gsGet} from "@/functions/gls";
+import {GLS} from "@/functions/gls";
 import {useSelector} from "react-redux";
 import Bany from "@/app/admin/_layouts/bany";
 // export const revalidate = 200;
 
 
 export default function Any() {
-    useGLS();
+    const gls = GLS();
     // const val ="---";
     // const val = useSelector((store) => {
     //     return store.stReducer.val;
@@ -25,7 +25,7 @@ export default function Any() {
     return (
         <div style={{backgroundColor: c ? "#0ff" : "#999"}} onClick={() => {
             setC(!c)
-        }}>ANY{gsGet("btnColor", "yellow")} {"val"}
+        }}>ANY {gls.g.get("btnColor", "yellow")}
             <br/><br/>
             <Bany></Bany>
             <br/><br/>

@@ -3,14 +3,14 @@
 import {useEffect, useState} from "react";
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import { useDispatch, useSelector } from "react-redux";
-import {lsGet, gsGet, gsSet, useGLS} from "@/functions/gls";
+import {GLS} from "@/functions/gls";
 import {loaderOn, loaderOff} from "@/functions/f";
 import Loader from "@/app/admin/_layouts/loader";
 import Any from "@/app/admin/_layouts/any";
 
 
 export default function Dashboard() {
-    useGLS();
+    const gls = GLS();
     // const [ state, setState ] = useGLS();
     // console.log("state=", state);
     // const dispatch = useDispatch();
@@ -38,20 +38,20 @@ export default function Dashboard() {
         <div>
             <h1>DASHBOARD PAGE</h1>
             <div>{base_url}</div>
-            <div>{lsGet("_set", true, "sidebarOpen") ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
-            <button style={{backgroundColor: gsGet("btnColor", "yellow")}} className={'btn'}
+            <div>{gls.l.get("_set", true, "sidebarOpen") ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
+            <button style={{backgroundColor: gls.g.get("btnColor", "yellow")}} className={'btn'}
                     onClick={()=>{
-                        let c = gsGet("btnColor", "yellow");
-                        gsSet(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
+                        let c = gls.g.get("btnColor", "yellow");
+                        gls.g.set(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button><br/>
-            <button className={'btn'}
-                    onClick={()=>{
-                        dispatch({type:"d_st/someAction1", payload: "bbb"});
-                    }}
-            >Pressyano mio {"val"}</button>
+            {/*<button className={'btn'}*/}
+            {/*        onClick={()=>{*/}
+            {/*            dispatch({type:"d_st/someAction1", payload: "bbb"});*/}
+            {/*        }}*/}
+            {/*>Pressyano mio {"val"}</button>*/}
             <Any></Any>
-            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gsGet("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gls.g.get("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>
     );
 }

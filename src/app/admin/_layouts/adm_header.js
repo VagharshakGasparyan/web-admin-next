@@ -12,7 +12,7 @@ export default function AdmHeader() {
     const pathname = usePathname();
     const toggleSidebar = () => {
         let sidebarOpen = gls.l.get("_set", true, "sidebarOpen");
-        gls.l.set(true, "_set", !sidebarOpen, "sidebarOpen");
+        gls.l.set(true, ["_set", "sidebarOpen"], !sidebarOpen);
     };
     console.log("global.ls=", global.ls);
     return (

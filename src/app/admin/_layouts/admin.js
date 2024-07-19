@@ -24,7 +24,7 @@ export default function Admin({children}) {
             let m = d.getMinutes();
             let s = d.getSeconds();
             let hms = d.getHours() + ":" + (m > 9 ? "" : "0") + m + ":" + (s > 9 ? "" : "0") + s;
-            gls.l.set(false, "_set", hms, "__on__beforeunload__");
+            gls.l.set(false, ["_set", "__on__beforeunload__"], hms);
         });
     }, []);
 

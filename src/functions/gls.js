@@ -83,22 +83,19 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
     return val === null ? defaultValue : val;
 }
 
-function lsSet(needToUpdateState, localStorageKey, value, jsonKey = null) {
-    if (jsonKey) {
-        try {
-            let val = localStorage.getItem(localStorageKey);
-            let val1 = isJsonString(val) ? JSON.parse(val) : {};
-            val1[jsonKey] = value;
-            localStorage.setItem(localStorageKey, JSON.stringify(val1));
-            saveByKeys(["ls", localStorageKey, jsonKey], value, global);
-            updateState(needToUpdateState);
-            return true;
-        } catch (e) {
-            return false;
-        }
+function lsSet(needToUpdateState, keys, value) {
+    let key = keys[0];
+    if(keys.length === 1){
+        localStorage.setItem(key, value);
+        saveByKeys(["ls", key], value, global);
+    }else if(keys.length > 1){
+        let val = localStorage.getItem(key);
+        let val1 = isJsonString(val) ? JSON.parse(val) : {};
+        global.ls = {[key]: val1};
+        saveByKeys(["ls", ...keys], value, global);
+        val1 = global.ls[key];
+        localStorage.setItem(key, JSON.stringify(val1));
     }
-    localStorage.setItem(localStorageKey, value);
-    saveByKeys(["ls", localStorageKey], value, global);
     updateState(needToUpdateState);
     return true;
 }

@@ -2,7 +2,7 @@
 
 const {useState, createContext, useEffect, useContext} = require("react");
 
-function isJson(data) {
+function isJsonString(data) {
     if(typeof data !== "string"){
         return false;
     }
@@ -14,23 +14,35 @@ function isJson(data) {
     }
 }
 
-function isTypeJson(data) {
+function isJsonTypeObj(data) {
     return (typeof data === "object") && (data !== null) && (typeof data !== "function");
 }
 
-function saveToGlobal(keys, value, obj) {
+function saveByKeys(keys, value, obj) {
+    if(!isJsonTypeObj(obj)){
+        obj = {};
+    }
     let key = keys[0];
     if (keys.length < 2) {
-        if(!isTypeJson(obj)){
-            obj = {};
-        }
         obj[key] = value;
         return;
     }
-    if (!isTypeJson(obj) || !(key in obj)) {
+    if (!(key in obj)) {
         obj[key] = {};
     }
-    saveToGlobal(keys.slice(1), value, obj[key]);
+    saveByKeys(keys.slice(1), value, obj[key]);
+}
+
+function delByKeys(keys, obj) {
+    let key = keys[0];
+    if(!isJsonTypeObj(obj) || !(key in obj)){
+        return;
+    }
+    if (keys.length < 2) {
+        delete obj[key];
+        return;
+    }
+    delByKeys(keys.slice(1), obj[key]);
 }
 
 function updateState(needToUpdateState) {
@@ -40,9 +52,9 @@ function updateState(needToUpdateState) {
 }
 
 function lsGet(localStorageKey, defaultValue, jsonKey = null) {
-    if (("ls" in global) && isTypeJson(global.ls) && (localStorageKey in global.ls)) {
+    if (("ls" in global) && isJsonTypeObj(global.ls) && (localStorageKey in global.ls)) {
         if (jsonKey) {
-            if (isTypeJson(global.ls[localStorageKey]) && (jsonKey in global.ls[localStorageKey])) {
+            if (isJsonTypeObj(global.ls[localStorageKey]) && (jsonKey in global.ls[localStorageKey])) {
                 return global.ls[localStorageKey][jsonKey];
             }
         } else {
@@ -60,7 +72,7 @@ function lsGet(localStorageKey, defaultValue, jsonKey = null) {
             let val1 = JSON.parse(val);
             if(jsonKey in val1){
                 let val2 = val1[jsonKey];
-                saveToGlobal(["ls", localStorageKey, jsonKey], val2, global);
+                saveByKeys(["ls", localStorageKey, jsonKey], val2, global);
                 return val2;
             }
             return defaultValue;
@@ -75,10 +87,10 @@ function lsSet(needToUpdateState, localStorageKey, value, jsonKey = null) {
     if (jsonKey) {
         try {
             let val = localStorage.getItem(localStorageKey);
-            let val1 = isJson(val) ? JSON.parse(val) : {};
+            let val1 = isJsonString(val) ? JSON.parse(val) : {};
             val1[jsonKey] = value;
             localStorage.setItem(localStorageKey, JSON.stringify(val1));
-            saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
+            saveByKeys(["ls", localStorageKey, jsonKey], value, global);
             updateState(needToUpdateState);
             return true;
         } catch (e) {
@@ -86,35 +98,38 @@ function lsSet(needToUpdateState, localStorageKey, value, jsonKey = null) {
         }
     }
     localStorage.setItem(localStorageKey, value);
-    saveToGlobal(["ls", localStorageKey], value, global);
+    saveByKeys(["ls", localStorageKey], value, global);
     updateState(needToUpdateState);
     return true;
 }
 
-function lsDel(needToUpdateState, localStorageKey, value, jsonKey = null) {
-    if (jsonKey) {
-        try {
-            let val = localStorage.getItem(localStorageKey);
-            let val1 = isJson(val) ? JSON.parse(val) : {};
-            val1[jsonKey] = value;
-            localStorage.setItem(localStorageKey, JSON.stringify(val1));
-            saveToGlobal(["ls", localStorageKey, jsonKey], value, global);
-            updateState(needToUpdateState);
-            return true;
-        } catch (e) {
+function lsDel(needToUpdateState, keys) {
+    //localStorage.clear();
+    let key = keys[0];
+    if(keys.length === 1){
+        delByKeys(["ls", key], global);
+        localStorage.removeItem(key);
+    }else if(keys.length > 1){
+        let val = {};
+        let val1 = localStorage.getItem(key);
+        if(isJsonString(val1)){
+            val = JSON.parse(val1);
+        }else{
             return false;
         }
+        global.ls = {[key]: val};
+        delByKeys(["ls", ...keys], global);
+        val = global.ls[key];
+        localStorage.setItem(key, JSON.stringify(val));
     }
-    localStorage.setItem(localStorageKey, value);
-    saveToGlobal(["ls", localStorageKey], value, global);
     updateState(needToUpdateState);
     return true;
 }
 
 function gsGet(StateKey, defaultValue, jsonKey = null) {
-    if (("gs" in global) && isTypeJson(global.gs) && (StateKey in global.gs)) {
+    if (("gs" in global) && isJsonTypeObj(global.gs) && (StateKey in global.gs)) {
         if (jsonKey) {
-            if (isTypeJson(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
+            if (isJsonTypeObj(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
                 return global.gs[StateKey][jsonKey];
             }
         } else {
@@ -127,14 +142,14 @@ function gsGet(StateKey, defaultValue, jsonKey = null) {
 function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {
     if (jsonKey) {
         try {
-            saveToGlobal(["gs", StateKey, jsonKey], value, global);
+            saveByKeys(["gs", StateKey, jsonKey], value, global);
             updateState(needToUpdateState);
             return true;
         } catch (e) {
             return false;
         }
     }
-    saveToGlobal(["gs", StateKey], value, global);
+    saveByKeys(["gs", StateKey], value, global);
     updateState(needToUpdateState);
     return true;
 }
@@ -173,8 +188,6 @@ function GLS() {
     return gls;
 }
 
-
-
 function StateProvider({children, loader}) {
     const [state, setState] = useState(false);
     const [initialized, setInitialized] = useState(false);
@@ -191,5 +204,4 @@ function StateProvider({children, loader}) {
     );
 }
 
-
-module.exports = {GLS, gls, StateProvider};
+module.exports = {useGLS, GLS, gls, StateProvider};

@@ -14,6 +14,7 @@ export default function AdmHeader() {
         let sidebarOpen = gls.l.get("_set", true, "sidebarOpen");
         gls.l.set(true, "_set", !sidebarOpen, "sidebarOpen");
     };
+    console.log("global.ls=", global.ls);
     return (
         <header className={"admin-header"}>
             <div style={{width: "250px", display: "flex", alignItems: "center"}}>
@@ -24,7 +25,8 @@ export default function AdmHeader() {
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>
                 <button type={"button"} onClick={()=>{
-                    gls.l.set(true, "_set", "{}");
+                    gls.l.del(true, ["_set", "sidebarOpen"]);
+                    // gls.l.del(true, ["_set"]);
                 }}>off locale storage</button>
             </div>
             <div className={"d-flex"} style={{alignItems: "center", padding: "0 10px"}}>

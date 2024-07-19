@@ -10,9 +10,9 @@ export default function L1() {
     return (
         <div>
             <h1>ADMIN PAGE</h1>
-            <button style={{backgroundColor: gls.g.get("btnColor", "yellow")}} className={'btn'}
+            <button style={{backgroundColor: gls.g.get(["btnColor"], "yellow")}} className={'btn'}
                     onClick={()=>{
-                        let c = gls.g.get("btnColor", "yellow");
+                        let c = gls.g.get(["btnColor"], "yellow");
                         gls.g.set(true, "btnColor", c === "yellow" ? "red" : "yellow");
                     }}
             >Press me</button>

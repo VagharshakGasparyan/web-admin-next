@@ -39,7 +39,7 @@ export default function Dashboard() {
             <h1>DASHBOARD PAGE</h1>
             <div>{base_url}</div>
             <div>{gls.l.get(["_set", "sidebarOpen"], true) ? "Սայդբառը բացա" : "Սայդբառը փագա"}</div>
-            <button style={{backgroundColor: gls.g.get("btnColor", "yellow")}} className={'btn'}
+            <button style={{backgroundColor: gls.g.get(["btnColor"], "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = gls.g.get("btnColor", "yellow");
                         gls.g.set(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
@@ -51,7 +51,7 @@ export default function Dashboard() {
             {/*        }}*/}
             {/*>Pressyano mio {"val"}</button>*/}
             <Any></Any>
-            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gls.g.get("loading", false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gls.g.get(["loading"], false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
         </div>
     );
 }

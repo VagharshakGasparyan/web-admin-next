@@ -25,7 +25,7 @@ export default function Any() {
     return (
         <div style={{backgroundColor: c ? "#0ff" : "#999"}} onClick={() => {
             setC(!c)
-        }}>ANY {gls.g.get("btnColor", "yellow")}
+        }}>ANY {gls.g.get(["btnColor"], "yellow")}
             <br/><br/>
             <Bany></Bany>
             <br/><br/>

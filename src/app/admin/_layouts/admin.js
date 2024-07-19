@@ -42,7 +42,7 @@ export default function Admin({children}) {
                     {children}
                 </main>
             </section>
-            {gls.g.get("loading", false) ? <Loader/> : <></>}
+            {gls.g.get(["loading"], false) ? <Loader/> : <></>}
         </>
     );
 }

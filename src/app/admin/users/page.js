@@ -13,13 +13,13 @@ export default function Users() {
     return (
         <div>
             <h1>USERS PAGE</h1>
-            <button style={{backgroundColor: gls.g.get("btnColor", "yellow")}} className={'btn'}
+            <button style={{backgroundColor: gls.g.get(["btnColor"], "yellow")}} className={'btn'}
                     onClick={()=>{
-                        let c = gls.g.get("btnColor", "yellow");
+                        let c = gls.g.get(["btnColor"], "yellow");
                         gls.g.set(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button>
-            <div style={{height: "150px", backgroundColor: gls.g.get("btnColor", "yellow"), marginTop: 25}}></div>
+            <div style={{height: "150px", backgroundColor: gls.g.get(["btnColor"], "yellow"), marginTop: 25}}></div>
         </div>
     );
 }

@@ -118,17 +118,19 @@ function lsDel(needToUpdateState, keys) {
     return true;
 }
 
-function gsGet(StateKey, defaultValue, jsonKey = null) {
-    if (("gs" in global) && isJsonTypeObj(global.gs) && (StateKey in global.gs)) {
-        if (jsonKey) {
-            if (isJsonTypeObj(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
-                return global.gs[StateKey][jsonKey];
-            }
-        } else {
-            return global.gs[StateKey];
-        }
-    }
-    return defaultValue;
+function gsGet(keys, defaultValue) {
+    // if (("gs" in global) && isJsonTypeObj(global.gs) && (StateKey in global.gs)) {
+    //     if (jsonKey) {
+    //         if (isJsonTypeObj(global.gs[StateKey]) && (jsonKey in global.gs[StateKey])) {
+    //             return global.gs[StateKey][jsonKey];
+    //         }
+    //     } else {
+    //         return global.gs[StateKey];
+    //     }
+    // }
+    // return defaultValue;
+    let val = getByKeys(["gs", ...keys], global);
+    return val === undefined ? defaultValue : val;
 }
 
 function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {

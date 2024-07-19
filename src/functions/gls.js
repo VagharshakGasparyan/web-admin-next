@@ -120,7 +120,6 @@ function lsDel(needToUpdateState, keys) {
 
 function gsGet(keys, defaultValue) {
     let val = getByKeys(["gs", ...keys], global);
-    console.log("val=", val);
     return val === undefined ? defaultValue : val;
 }
 

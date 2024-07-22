@@ -42,7 +42,7 @@ export default function Dashboard() {
             <button style={{backgroundColor: gls.g.get(["btnColor"], "yellow")}} className={'btn'}
                     onClick={()=>{
                         let c = gls.g.get(["btnColor"], "yellow");
-                        gls.g.set(true, "btnColor", c === "yellow" ? "#77f" : "yellow");
+                        gls.g.set(true, ["btnColor"], c === "yellow" ? "#77f" : "yellow");
                     }}
             >Press me</button><br/>
             {/*<button className={'btn'}*/}

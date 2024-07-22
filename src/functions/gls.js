@@ -123,19 +123,19 @@ function gsGet(keys, defaultValue) {
     return val === undefined ? defaultValue : val;
 }
 
-function gsSet(needToUpdateState, StateKey, value, jsonKey = null) {
-    if (jsonKey) {
-        try {
-            saveByKeys(["gs", StateKey, jsonKey], value, global);
-            updateState(needToUpdateState);
-            return true;
-        } catch (e) {
-            return false;
-        }
-    }
-    saveByKeys(["gs", StateKey], value, global);
+function gsSet(needToUpdateState, keys, value) {
+    saveByKeys(["gs", ...keys], value, global);
     updateState(needToUpdateState);
     return true;
+}
+
+function gsDel(needToUpdateState, keys) {
+    if(keys.length > 1){
+        delByKeys(["gs", ...keys], global);
+        updateState(needToUpdateState);
+        return true;
+    }
+    return false;
 }
 
 const StateContext = createContext("state");
@@ -152,7 +152,7 @@ const gls = {
     g: {
         get: gsGet,
         set: gsSet,
-        del: {},
+        del: gsDel,
     },
     l: {
         get: lsGet,

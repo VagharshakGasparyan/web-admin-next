@@ -61,7 +61,7 @@ function updateState(needToUpdateState) {
         global.updateState();
     }
 }
-
+/*local storage*/
 function lsGet(keys, defaultValue) {
     let key = keys[0];
     let val = getByKeys(["ls", ...keys], global);
@@ -117,7 +117,62 @@ function lsDel(needToUpdateState, keys) {
     updateState(needToUpdateState);
     return true;
 }
+/*session storage*/
+function ssGet(keys, defaultValue) {
+    let key = keys[0];
+    let val = getByKeys(["ss", ...keys], global);
+    if(val === undefined){
+        let val1 = sessionStorage.getItem(key);
+        if(keys.length > 1){
+            val1 = isJsonString(val1) ? JSON.parse(val1) : undefined;
+        }
+        if(val1 !== undefined){
+            global.ss = {[key]: val1};
+            val = getByKeys(["ss", ...keys], global);
+        }
+    }
+    return val === undefined ? defaultValue : val;
+}
 
+function ssSet(needToUpdateState, keys, value) {
+    let key = keys[0];
+    if(keys.length === 1){
+        sessionStorage.setItem(key, value);
+        saveByKeys(["ss", key], value, global);
+    }else if(keys.length > 1){
+        let val = sessionStorage.getItem(key);
+        let val1 = isJsonString(val) ? JSON.parse(val) : {};
+        global.ss = {[key]: val1};
+        saveByKeys(["ss", ...keys], value, global);
+        val1 = global.ss[key];
+        sessionStorage.setItem(key, JSON.stringify(val1));
+    }
+    updateState(needToUpdateState);
+    return true;
+}
+
+function ssDel(needToUpdateState, keys) {
+    let key = keys[0];
+    if(keys.length === 1){
+        delByKeys(["ss", key], global);
+        sessionStorage.removeItem(key);
+    }else if(keys.length > 1){
+        let val = {};
+        let val1 = sessionStorage.getItem(key);
+        if(isJsonString(val1)){
+            val = JSON.parse(val1);
+        }else{
+            return false;
+        }
+        global.ss = {[key]: val};
+        delByKeys(["ss", ...keys], global);
+        val = global.ss[key];
+        sessionStorage.setItem(key, JSON.stringify(val));
+    }
+    updateState(needToUpdateState);
+    return true;
+}
+/*global state*/
 function gsGet(keys, defaultValue) {
     let val = getByKeys(["gs", ...keys], global);
     return val === undefined ? defaultValue : val;
@@ -160,7 +215,9 @@ const gls = {
         del: lsDel,
     },
     s: {
-
+        get: ssGet,
+        set: ssSet,
+        del: ssDel,
     }
 };
 

@@ -52,6 +52,12 @@ export default function Dashboard() {
             {/*>Pressyano mio {"val"}</button>*/}
             <Any></Any>
             <div style={{marginTop: "10px"}}><button className={'btn'} onClick={onLoading}>{gls.g.get(["loading"], false) ? <Loader type={"sm"}/> : <></>} Միացնել լոադերը 10 վայրկյանով</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
+                gls.s.set(true, ["abc", "def", "ghi"], "********");
+            }}>qwerty {gls.s.get(["abc", "def", "ghi"], "-----")}</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
+                gls.s.del(true, ["abc"]);
+            }}>обнулить session storage</button></div>
         </div>
     );
 }

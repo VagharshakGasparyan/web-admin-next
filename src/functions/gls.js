@@ -205,6 +205,15 @@ function gsDel(needToUpdateState, keys) {
     return true;
 }
 
+function delAll(needToUpdateState) {
+    needToUpdateState = needToUpdateState === undefined ? true : needToUpdateState;
+    lsDel(false);
+    ssDel(false);
+    gsDel(false);
+    updateState(needToUpdateState);
+    return true;
+}
+
 const StateContext = createContext("state");
 
 function useGLS() {
@@ -231,11 +240,7 @@ const gls = {
         set: ssSet,
         del: ssDel,
     },
-    del: ()=>{
-        lsDel(false);
-        ssDel(false);
-        gsDel(true);
-    }
+    del: delAll
 };
 
 function GLS() {

@@ -96,9 +96,13 @@ function lsSet(needToUpdateState, keys, value) {
 }
 
 function lsDel(needToUpdateState, keys) {
-    //localStorage.clear();
+    needToUpdateState = needToUpdateState === undefined ? true : needToUpdateState;
+    keys = keys ? keys : [];
     let key = keys[0];
-    if(keys.length === 1){
+    if(keys.length === 0){
+        delByKeys(["ls"], global);
+        localStorage.clear();
+    }else if(keys.length === 1){
         delByKeys(["ls", key], global);
         localStorage.removeItem(key);
     }else if(keys.length > 1){
@@ -152,8 +156,13 @@ function ssSet(needToUpdateState, keys, value) {
 }
 
 function ssDel(needToUpdateState, keys) {
+    needToUpdateState = needToUpdateState === undefined ? true : needToUpdateState;
+    keys = keys ? keys : [];
     let key = keys[0];
-    if(keys.length === 1){
+    if(keys.length === 0){
+        delByKeys(["ss"], global);
+        sessionStorage.clear();
+    }else if(keys.length === 1){
         delByKeys(["ss", key], global);
         sessionStorage.removeItem(key);
     }else if(keys.length > 1){
@@ -185,12 +194,15 @@ function gsSet(needToUpdateState, keys, value) {
 }
 
 function gsDel(needToUpdateState, keys) {
-    if(keys.length > 1){
+    needToUpdateState = needToUpdateState === undefined ? true : needToUpdateState;
+    keys = keys ? keys : [];
+    if(keys.length === 0){
+        delByKeys(["gs"], global);
+    }else if(keys.length > 1){
         delByKeys(["gs", ...keys], global);
-        updateState(needToUpdateState);
-        return true;
     }
-    return false;
+    updateState(needToUpdateState);
+    return true;
 }
 
 const StateContext = createContext("state");
@@ -218,6 +230,11 @@ const gls = {
         get: ssGet,
         set: ssSet,
         del: ssDel,
+    },
+    del: ()=>{
+        lsDel(false);
+        ssDel(false);
+        gsDel(true);
     }
 };
 

@@ -25,7 +25,8 @@ export default function AdmHeader() {
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>User</div>
             <div className={"d-flex flex-1 align-items-center"} style={{padding: "0 10px"}}>
                 <button type={"button"} onClick={()=>{
-                    gls.l.del(true, ["_set", "sidebarOpen"]);
+                    gls.l.del();
+                    // gls.l.del(true, ["_set", "sidebarOpen"]);
                     // gls.l.del(true, ["_set"]);
                 }}>off locale storage</button>
             </div>

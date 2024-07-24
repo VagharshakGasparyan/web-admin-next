@@ -56,8 +56,15 @@ export default function Dashboard() {
                 gls.s.set(true, ["abc", "def", "ghi"], "********");
             }}>qwerty {gls.s.get(["abc", "def", "ghi"], "-----")}</button></div>
             <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
-                gls.s.del(true, ["abc"]);
+                // gls.s.del(true, ["abc"]);
+                gls.s.del();
             }}>обнулить session storage</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
+                gls.g.del();
+            }}>обнулить global state</button></div>
+            <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
+                gls.del();
+            }}>обнулить all</button></div>
         </div>
     );
 }

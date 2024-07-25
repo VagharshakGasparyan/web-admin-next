@@ -65,6 +65,7 @@ export default function Dashboard() {
             <div style={{marginTop: "10px"}}><button className={'btn'} onClick={()=>{
                 gls.del();
             }}>обнулить all</button></div>
+            <div>abcdefgh</div>
         </div>
     );
 }

@@ -2,6 +2,7 @@
 
 import {useRouter, redirect, usePathname} from 'next/navigation';
 import {GLS} from "@/functions/gls";
+import {MagicBox} from "@/components/magic_box";
 // export const revalidate = 200;
 
 export default function L1() {
@@ -16,6 +17,7 @@ export default function L1() {
                         gls.g.set(true, ["btnColor"], c === "yellow" ? "red" : "yellow");
                     }}
             >Press me</button>
+            <MagicBox />
         </div>
     );
 }

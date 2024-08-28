@@ -23,7 +23,7 @@ export default function Any() {
         // console.log("useEffect ANY");
     }, []);
     return (
-        <div style={{backgroundColor: c ? "#0ff" : "#999"}} onClick={() => {
+        <div style={{backgroundColor: c ? "#0ff" : "#999", userSelect:"none"}} onClick={() => {
             setC(!c)
         }}>ANY {gls.g.get(["btnColor"], "yellow")}
             <br/><br/>

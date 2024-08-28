@@ -35,15 +35,15 @@ export function MagicBox() {
     };
     return (
         <div>
-            <svg width={"15.6mm"} height={"15.6mm"}  style={{fillRule: "evenodd", clipRule: "evenodd"}}
-                 viewBox="0 0 22881 22881">
+            <svg width={"15.6"} height={"15.6"}  style={{fillRule: "evenodd", clipRule: "evenodd"}}
+                 viewBox="-200 -200 23200 23200">
                 <circle fill={fil0_2} style={str0_2} className="fil0 str0" cx="11440.5" cy="11440.5" r="11071.4"/>
                 <path fill={fil1_2} style={str0_2}
                       d="M14600.7 15425.3l0 -8065.2 1673.7 1673.7 1767 1767.1c322.8,322.7 322.8,860.8 0,1183.5l-1767 1767 0 2761.7 3147.8 -3147.8c1084.9,-1085 1084.9,-2860.3 0,-3945.1l-3147.8 -3147.8 -1673.7 -1673.9 -1096.1 -1095.9c-364.5,-364.6 -807,-606.7 -1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 2371.2 -2371.2 0 -2761.5z"/>
                 <path fill={fil1_2} style={str0_2}
                       d="M8463.6 15425.3l0 -8065.2 -1673.9 1673.7 -1767 1767.1c-322.8,322.7 -322.8,860.8 0,1183.5l1767 1767 0 2761.7 -3147.8 -3147.8c-1084.9,-1085 -1084.9,-2860.3 0,-3945.1l3147.8 -3147.8 1673.9 -1673.9 1095.9 -1095.9c364.6,-364.6 807.2,-606.7 1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 -2371.1 -2371.2 0 -2761.5z"/>
             </svg>
-            <svg width={"144.75mm"} height={"80.1241mm"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
+            <svg width={"144.75"} height={"80.1241"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
                  viewBox="0 0 144750 80124">
                 <polygon fill={fil0} style={str0} points="72374.9,6415.8 2375,35519.9 72374.9,64623.9 142374.8,35519.9 "/>
                 <path fill={fil0} style={str0}
@@ -61,7 +61,7 @@ export function MagicBox() {
             </svg>
 
 
-            <svg width={"141mm"} height={"140.104mm"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
+            <svg width={"141"} height={"140.104"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
                  viewBox="0 0 141000.2 140104.3">
 
                 <rect fill={fil0} style={str0} transform="matrix(0.875 0.363801 -0 1.07861 500.098 29604.2)"

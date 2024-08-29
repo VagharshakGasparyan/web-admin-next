@@ -1,10 +1,38 @@
+//<MagicBox width={300} />
 'use client'
 
-import {usePathname} from 'next/navigation';
-import Link from 'next/link';
+const {useState, useEffect} = require("react");
 
-export function MagicBox() {
-    // const pathname = usePathname();
+export function MagicBox({width}) {
+    const w = width | 300;
+    const k = w / 300;//animation dimensions coefficient
+    const m_box = {
+        width: (141 * w / 300).toPrecision(4),
+        height: (140.104 * w / 300).toPrecision(4),
+    };
+    const m_cup = {
+        width: (144.75 * w / 300).toPrecision(4),
+        height: (80.1241 * w / 300).toPrecision(4),
+    }
+    const m_token = {
+        width: (15.6 * w / 300).toPrecision(4),
+        height: (15.6 * w / 300).toPrecision(4),
+    }
+
+    const [clicked, SetClicked] = useState(false);
+    const [boxBottom, SetBoxBottom] = useState(10 * k);
+    const [cupBottom, SetCupBottom] = useState(91 * k);
+    const [tokenBottom, SetTokenBottom] = useState(111);
+    const [boxTransition, SetBoxTransition] = useState("bottom 60ms ease-out");
+    const [cupTransition, SetCupTransition] = useState("bottom 60ms ease-out");
+    const [tokenTransition, SetTokenTransition] = useState("bottom 60ms ease-out, left 60ms ease-out");
+    const [tokenRadius, SetTokenRadius] = useState(10);
+    useEffect(()=>{
+        // setTimeout(()=>{
+        //     SetCupBottom(100);
+        // }, 100);
+    }, []);
+
     const fil0 = "#2F7FE1";
     const fil0_2 = "#CDAE7D";
     const fil1 = "none";
@@ -33,19 +61,96 @@ export function MagicBox() {
         strokeLinejoin: "round",
         strokeMiterlimit: 2.61313
     };
+    const sleep = (t)=>{
+        return new Promise((resolve, reject)=>{
+            setTimeout(()=>{
+                resolve();
+            }, t);
+        });
+    }
+    const startAnimations = () =>{
+        (async ()=>{
+            if (clicked){
+                SetClicked(false);
+                SetCupBottom(91 * k);
+                SetBoxBottom(10 * k);
+                SetTokenBottom(111);
+                SetCupTransition("bottom 60ms ease-out");
+                SetBoxTransition("bottom 60ms ease-out");
+                SetTokenTransition("bottom 60ms ease-out, left 60ms ease-out");
+                SetTokenRadius(10);
+                return;
+            }
+            SetClicked(true);
+            SetCupBottom(81 * k);
+            SetBoxBottom(0);
+            SetTokenBottom(101);
+            await sleep(60);
+            SetCupTransition("bottom 250ms ease-out");
+            SetBoxTransition("bottom 120ms ease-out");
+            SetTokenTransition("bottom 120ms ease-out, left 120ms ease-out");
+            SetCupBottom(215 * k);
+            SetBoxBottom(20 * k);
+            SetTokenBottom(131);
+            await sleep(120);
+            SetBoxTransition("bottom 200ms ease-out");
+            SetTokenTransition("bottom 200ms ease-out, left 200ms ease-out");
+            SetBoxBottom(0);
+            SetTokenBottom(101);
+            await sleep(200);
+            SetTokenTransition("bottom 400ms ease-out, left 400ms ease-out");
+            SetTokenBottom(161);
+            SetTokenRadius(80);
+            await sleep(400);
+            SetTokenBottom(141);
+            SetTokenRadius(110);
+        })();
+    };
+    const tokens = ()=>{
+        let pri_tokens = [];
+        for(let i = 0; i < 9; i++){
+            let alpha = i * 2 * Math.PI / 9;
+            let x = Math.cos(alpha) * tokenRadius;
+            let y = Math.sin(alpha) * tokenRadius * 0.5;
+            let bottom = ((tokenBottom + y) * k).toPrecision(4) + "px";
+            let left = ((150 - 15.6 / 2 + x) * k).toPrecision(4) + "px";
+            pri_tokens.push(
+                <svg key={"pri-token-" + i} width={m_token.width} height={m_token.height}
+                     style={{position: "absolute", left: left, bottom: bottom, zIndex: 5, transition: tokenTransition}}
+                     viewBox="-200 -200 23200 23200">
+                    <circle fill={fil0_2} style={str0_2} className="fil0 str0" cx="11440.5" cy="11440.5" r="11071.4"/>
+                    <path fill={fil1_2} style={str0_2}
+                          d="M14600.7 15425.3l0 -8065.2 1673.7 1673.7 1767 1767.1c322.8,322.7 322.8,860.8 0,1183.5l-1767 1767 0 2761.7 3147.8 -3147.8c1084.9,-1085 1084.9,-2860.3 0,-3945.1l-3147.8 -3147.8 -1673.7 -1673.9 -1096.1 -1095.9c-364.5,-364.6 -807,-606.7 -1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 2371.2 -2371.2 0 -2761.5z"/>
+                    <path fill={fil1_2} style={str0_2}
+                          d="M8463.6 15425.3l0 -8065.2 -1673.9 1673.7 -1767 1767.1c-322.8,322.7 -322.8,860.8 0,1183.5l1767 1767 0 2761.7 -3147.8 -3147.8c-1084.9,-1085 -1084.9,-2860.3 0,-3945.1l3147.8 -3147.8 1673.9 -1673.9 1095.9 -1095.9c364.6,-364.6 807.2,-606.7 1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 -2371.1 -2371.2 0 -2761.5z"/>
+                </svg>
+            )
+        }
+        return pri_tokens;
+    };
     return (
-        <div>
-            <svg width={"15.6"} height={"15.6"}  style={{fillRule: "evenodd", clipRule: "evenodd"}}
-                 viewBox="-200 -200 23200 23200">
-                <circle fill={fil0_2} style={str0_2} className="fil0 str0" cx="11440.5" cy="11440.5" r="11071.4"/>
-                <path fill={fil1_2} style={str0_2}
-                      d="M14600.7 15425.3l0 -8065.2 1673.7 1673.7 1767 1767.1c322.8,322.7 322.8,860.8 0,1183.5l-1767 1767 0 2761.7 3147.8 -3147.8c1084.9,-1085 1084.9,-2860.3 0,-3945.1l-3147.8 -3147.8 -1673.7 -1673.9 -1096.1 -1095.9c-364.5,-364.6 -807,-606.7 -1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 2371.2 -2371.2 0 -2761.5z"/>
-                <path fill={fil1_2} style={str0_2}
-                      d="M8463.6 15425.3l0 -8065.2 -1673.9 1673.7 -1767 1767.1c-322.8,322.7 -322.8,860.8 0,1183.5l1767 1767 0 2761.7 -3147.8 -3147.8c-1084.9,-1085 -1084.9,-2860.3 0,-3945.1l3147.8 -3147.8 1673.9 -1673.9 1095.9 -1095.9c364.6,-364.6 807.2,-606.7 1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 -2371.1 -2371.2 0 -2761.5z"/>
-            </svg>
-            <svg width={"144.75"} height={"80.1241"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
+        <div style={{
+            display: "inline-block",
+            position: "relative",
+            border: "1px solid black",
+            width: w + "px",
+            height: w + "px"
+        }} onClick={startAnimations}>
+            {tokens()}
+
+            <svg width={m_cup.width} height={m_cup.height} style={
+                {
+                    position: "absolute",
+                    zIndex: 10,
+                    bottom: cupBottom + "px",
+                    left: "50%",
+                    transform: "translateX(-50%)",
+                    transition: cupTransition
+                }
+            }
                  viewBox="0 0 144750 80124">
-                <polygon fill={fil0} style={str0} points="72374.9,6415.8 2375,35519.9 72374.9,64623.9 142374.8,35519.9 "/>
+                <polygon fill={fil0} style={str0}
+                         points="72374.9,6415.8 2375,35519.9 72374.9,64623.9 142374.8,35519.9 "/>
                 <path fill={fil0} style={str0}
                       d="M72374.9 64623.9l-69999.9 -29104.1c-2500,5000 -2500,10000 0.2,15000l69999.7 29104.1 0 -15000z"/>
                 <path fill={fil0} style={str0}
@@ -60,8 +165,15 @@ export function MagicBox() {
                       d="M116408.6 6415.7c-825.6,4111.6 -5252.3,8196.8 -11451.9,10771.7 -2206.1,916.3 -4096.5,1625.2 -5817.9,2225.8 -4557,4579 -10527.1,10356.4 -20908.1,17872.6 22444.2,-12076.8 24285.1,-10086.3 37552.9,-15596.8 6962.9,-2891.9 11689.3,-7689 11589.7,-12288.8 -42.2,-1954.7 -830.9,-3266.7 -2250.1,-3918.2l-292.8 -121.7c-1894.4,-710.3 -4778.6,-370.3 -8421.9,1055.4z"/>
             </svg>
 
-
-            <svg width={"141"} height={"140.104"} style={{fillRule: "evenodd", clipRule: "evenodd"}}
+            <svg width={m_box.width} height={m_box.height}
+                 style={{
+                     position: "absolute",
+                     zIndex: 0,
+                     bottom: boxBottom + "px",
+                     left: "50%",
+                     transform: "translateX(-50%)",
+                     transition: boxTransition
+            }}
                  viewBox="0 0 141000.2 140104.3">
 
                 <rect fill={fil0} style={str0} transform="matrix(0.875 0.363801 -0 1.07861 500.098 29604.2)"

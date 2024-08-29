@@ -17,7 +17,7 @@ export default function L1() {
                         gls.g.set(true, ["btnColor"], c === "yellow" ? "red" : "yellow");
                     }}
             >Press me</button>
-            <MagicBox />
+            <MagicBox width={400} />
         </div>
     );
 }

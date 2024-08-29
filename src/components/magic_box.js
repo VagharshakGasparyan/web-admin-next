@@ -98,7 +98,7 @@ export function MagicBox({width}) {
             SetBoxBottom(0);
             SetTokenBottom(101);
             await sleep(200);
-            SetTokenTransition("bottom 400ms ease-out, left 400ms ease-out");
+            SetTokenTransition("bottom 400ms ease-in-out, left 400ms linear");
             SetTokenBottom(161);
             SetTokenRadius(80);
             await sleep(400);

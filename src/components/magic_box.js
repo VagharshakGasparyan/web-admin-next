@@ -1,9 +1,20 @@
-//<MagicBox width={300} />
+/* how to use*/
+/*
+    let closeMagicBox = (f)=>{
+        closeMagicBox = f;
+    }
+    return ...
+        <MagicBox width={300} closeMagicBox={closeMagicBox} />
+        ...
+        <button onClick={closeMagicBox}>go to the starting position</button>
+    ...
+*/
 'use client'
 
 const {useState, useEffect} = require("react");
 
-export function MagicBox({width}) {
+export function MagicBox({width, closeMagicBox}) {
+
     const w = width | 300;
     const k = w / 300;//animation dimensions coefficient
     const m_box = {
@@ -27,6 +38,20 @@ export function MagicBox({width}) {
     const [cupTransition, SetCupTransition] = useState("bottom 60ms ease-out");
     const [tokenTransition, SetTokenTransition] = useState("bottom 60ms ease-out, left 60ms ease-out");
     const [tokenRadius, SetTokenRadius] = useState(10);
+
+    const setToStartingPosition = ()=>{
+        SetClicked(false);
+        SetCupBottom(91 * k);
+        SetBoxBottom(10 * k);
+        SetTokenBottom(111);
+        SetCupTransition("bottom 60ms ease-out");
+        SetBoxTransition("bottom 60ms ease-out");
+        SetTokenTransition("bottom 60ms ease-out, left 60ms ease-out");
+        SetTokenRadius(10);
+    }
+    if( typeof closeMagicBox === "function"){
+        closeMagicBox(setToStartingPosition);
+    }
     useEffect(()=>{
         // setTimeout(()=>{
         //     SetCupBottom(100);
@@ -71,14 +96,6 @@ export function MagicBox({width}) {
     const startAnimations = () =>{
         (async ()=>{
             if (clicked){
-                SetClicked(false);
-                SetCupBottom(91 * k);
-                SetBoxBottom(10 * k);
-                SetTokenBottom(111);
-                SetCupTransition("bottom 60ms ease-out");
-                SetBoxTransition("bottom 60ms ease-out");
-                SetTokenTransition("bottom 60ms ease-out, left 60ms ease-out");
-                SetTokenRadius(10);
                 return;
             }
             SetClicked(true);
@@ -91,31 +108,28 @@ export function MagicBox({width}) {
             SetTokenTransition("bottom 120ms ease-out, left 120ms ease-out");
             SetCupBottom(215 * k);
             SetBoxBottom(20 * k);
-            SetTokenBottom(131);
+            SetTokenBottom(151);
             await sleep(120);
             SetBoxTransition("bottom 200ms ease-out");
             SetTokenTransition("bottom 200ms ease-out, left 200ms ease-out");
             SetBoxBottom(0);
             SetTokenBottom(101);
             await sleep(200);
-            SetTokenTransition("bottom 400ms ease-in-out, left 400ms linear");
-            SetTokenBottom(161);
-            SetTokenRadius(80);
-            await sleep(400);
+            SetTokenTransition("bottom 400ms ease-out, left 400ms linear");
             SetTokenBottom(141);
-            SetTokenRadius(110);
+            SetTokenRadius(120);
         })();
     };
     const tokens = ()=>{
         let pri_tokens = [];
-        for(let i = 0; i < 9; i++){
-            let alpha = i * 2 * Math.PI / 9;
+        for(let i = 0; i < 16; i++){
+            let alpha = i * 2 * Math.PI / 16;
             let x = Math.cos(alpha) * tokenRadius;
             let y = Math.sin(alpha) * tokenRadius * 0.5;
             let bottom = ((tokenBottom + y) * k).toPrecision(4) + "px";
             let left = ((150 - 15.6 / 2 + x) * k).toPrecision(4) + "px";
             pri_tokens.push(
-                <svg key={"pri-token-" + i} width={m_token.width} height={m_token.height}
+                <svg key={"pri-token1-" + i} width={m_token.width} height={m_token.height}
                      style={{position: "absolute", left: left, bottom: bottom, zIndex: 5, transition: tokenTransition}}
                      viewBox="-200 -200 23200 23200">
                     <circle fill={fil0_2} style={str0_2} className="fil0 str0" cx="11440.5" cy="11440.5" r="11071.4"/>
@@ -124,7 +138,25 @@ export function MagicBox({width}) {
                     <path fill={fil1_2} style={str0_2}
                           d="M8463.6 15425.3l0 -8065.2 -1673.9 1673.7 -1767 1767.1c-322.8,322.7 -322.8,860.8 0,1183.5l1767 1767 0 2761.7 -3147.8 -3147.8c-1084.9,-1085 -1084.9,-2860.3 0,-3945.1l3147.8 -3147.8 1673.9 -1673.9 1095.9 -1095.9c364.6,-364.6 807.2,-606.7 1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 -2371.1 -2371.2 0 -2761.5z"/>
                 </svg>
-            )
+            );
+        }
+        for(let i = 0; i < 8; i++){
+            let alpha = i * 2 * Math.PI / 8;
+            let x = Math.cos(alpha) * tokenRadius;
+            let y = Math.sin(alpha) * tokenRadius * 0.5;
+            let bottom = ((tokenBottom + 0.5 * y) * k).toPrecision(4) + "px";
+            let left = ((150 - 15.6 / 2 + 0.5 * x) * k).toPrecision(4) + "px";
+            pri_tokens.push(
+                <svg key={"pri-token2-" + i} width={m_token.width} height={m_token.height}
+                     style={{position: "absolute", left: left, bottom: bottom, zIndex: 5, transition: tokenTransition}}
+                     viewBox="-200 -200 23200 23200">
+                    <circle fill={fil0_2} style={str0_2} className="fil0 str0" cx="11440.5" cy="11440.5" r="11071.4"/>
+                    <path fill={fil1_2} style={str0_2}
+                          d="M14600.7 15425.3l0 -8065.2 1673.7 1673.7 1767 1767.1c322.8,322.7 322.8,860.8 0,1183.5l-1767 1767 0 2761.7 3147.8 -3147.8c1084.9,-1085 1084.9,-2860.3 0,-3945.1l-3147.8 -3147.8 -1673.7 -1673.9 -1096.1 -1095.9c-364.5,-364.6 -807,-606.7 -1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 2371.2 -2371.2 0 -2761.5z"/>
+                    <path fill={fil1_2} style={str0_2}
+                          d="M8463.6 15425.3l0 -8065.2 -1673.9 1673.7 -1767 1767.1c-322.8,322.7 -322.8,860.8 0,1183.5l1767 1767 0 2761.7 -3147.8 -3147.8c-1084.9,-1085 -1084.9,-2860.3 0,-3945.1l3147.8 -3147.8 1673.9 -1673.9 1095.9 -1095.9c364.6,-364.6 807.2,-606.7 1275.1,-726.1l0 2212.5 0 12807.4 0 2761.7 -2371.1 -2371.2 0 -2761.5z"/>
+                </svg>
+            );
         }
         return pri_tokens;
     };
@@ -132,7 +164,7 @@ export function MagicBox({width}) {
         <div style={{
             display: "inline-block",
             position: "relative",
-            border: "1px solid black",
+            // border: "1px solid black",
             width: w + "px",
             height: w + "px"
         }} onClick={startAnimations}>
